@@ -1,11 +1,15 @@
-相比于源库增加了仪表盘
+# Alas修改版，适用于云端
 
-提供了一个较为实用的仪表盘，感谢@MengNianxiaoyao 作出的美观调整
+## 相较于原版Alas
+- 加入了`特别的东西`，可能有用？
+- 将`GamePageUnknownError`和`RequestHumanTakeover`写入重启，重启一次后再运行上次未完成的任务如果依旧报错则抛出错误并用OnePush通知(如果有设置OnePush的话)
+- 将`优化设置`中的`放慢截图速度至 X 秒一张`和`战斗中放慢截图速度至 X 秒一张`的时间限制分别从`0.1 ~ 0.3`和`0.1 ~ 1.0`放宽至`0.1 ~ 2.0`和`0.1 ~ 5.0`
+- 将`GameStuckError`中`无操作连续截图超过 1 分钟`放宽至`3 分钟`
+- 修复了在云端时由于网络延迟所导致的换装备时卡住(目前还在测试)
+- 修复了在云端时战术学院选择舰船时的bug(由于难以复现，目前还在观察测试)
 
-![image](https://github.com/Zuosizhu/Alas-with-Dashboard/assets/60862861/ee2e3e8f-9a19-417e-8e5f-441ecdee1ae6)
+## 注意事项
+- `深渊海域`的坐标有极低概率会被浪费，遇到了就当倒霉吧 (逃
 
-![image](https://github.com/Zuosizhu/Alas-with-Dashboard/assets/60862861/55f95cb3-5234-45d3-a265-6b5e0ab5fc3e)
-
-![image](https://github.com/Zuosizhu/Alas-with-Dashboard/assets/60862861/6033931a-c4ea-4262-853f-f315f076d305)
-
-![image](https://github.com/Zuosizhu/Alas-with-Dashboard/assets/60862861/6fafb159-2092-4423-9d58-3d6c1262e691)
+## Discord
+https://discord.gg/2NuruGzKkK
