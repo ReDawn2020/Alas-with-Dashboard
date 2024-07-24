@@ -504,11 +504,9 @@ class GemsFarming(CampaignRun, Dock, EquipmentChange):
             logger.error(f'Invalid CommonDD setting: {self.config.GemsFarming_CommonDD}')
             raise ScriptError('Invalid GemsFarming_CommonDD')
         self.dock_filter_set(
-            index='dd', rarity='common', faction=faction, extra='can_limit_break')
-        self.dock_filter_set(
             sort=self.config.VanguardFilter_Sort if self.config.VanguardFilter_Sort != 'default' else 'level',
             index=self.config.VanguardFilter_Index if self.config.VanguardFilter_Index != 'default' else 'dd',
-            faction=self.config.VanguardFilter_Faction if self.config.VanguardFilter_Faction != 'default' else 'faction',
+            faction=self.config.VanguardFilter_Faction if self.config.VanguardFilter_Faction != 'default' else faction,
             rarity=self.config.VanguardFilter_Rarity if self.config.VanguardFilter_Rarity != 'default' else 'common',
             extra=self.config.VanguardFilter_Extra if self.config.VanguardFilter_Extra != 'default' else 'can_limit_break'
             )
