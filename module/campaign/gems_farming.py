@@ -202,7 +202,7 @@ class GemsFarming(CampaignRun, Dock, EquipmentChange):
             self._ship_detail_enter(self.FLEET_ENTER_FLAGSHIP)
             self.record_equipment(index_list=index_list)
             self._equip_take_off_one()
-            self.ui_back(self.page_fleet_check_button)
+            self.ui_back(page_fleet.check_button)
 
         logger.hr('Change flagship', level=2)
         self._fleet_detail_enter()
@@ -214,7 +214,7 @@ class GemsFarming(CampaignRun, Dock, EquipmentChange):
             self._equip_take_off_one()
 
             self.equipment_take_on(index_list=index_list)
-            self.ui_back(self.page_fleet_check_button)
+            self.ui_back(page_fleet.check_button)
 
         return success
 
@@ -233,7 +233,7 @@ class GemsFarming(CampaignRun, Dock, EquipmentChange):
             self._ship_detail_enter(self.FLEET_ENTER)
             self.record_equipment()
             self._equip_take_off_one()
-            self.ui_back(self.page_fleet_check_button)
+            self.ui_back(page_fleet.check_button)
 
         logger.hr('Change vanguard', level=2)
         self._fleet_detail_enter()
@@ -245,7 +245,7 @@ class GemsFarming(CampaignRun, Dock, EquipmentChange):
             self._equip_take_off_one()
 
             self.equipment_take_on()
-            self.ui_back(self.page_fleet_check_button)
+            self.ui_back(page_fleet.check_button)
 
         return success
 
@@ -258,7 +258,7 @@ class GemsFarming(CampaignRun, Dock, EquipmentChange):
 
         self.dock_select_one(button)
         self._dock_reset()
-        self.dock_select_confirm(check_button=self.page_fleet_check_button)
+        self.dock_select_confirm(check_button=page_fleet.check_button)
 
     def get_common_rarity_cv(self, lv=31, emotion=16):
         """
@@ -383,7 +383,14 @@ class GemsFarming(CampaignRun, Dock, EquipmentChange):
         """
         Returns the corresponding template list based on CommonDD
         """
-        if common_dd == 'aulick_or_foote':
+        if common_dd == 'any':
+            return [
+                TEMPLATE_CASSIN_1, TEMPLATE_CASSIN_2,
+                TEMPLATE_DOWNES_1, TEMPLATE_DOWNES_2,
+                TEMPLATE_AULICK,
+                TEMPLATE_FOOTE
+            ]
+        elif common_dd == 'aulick_or_foote':
             return [
                 TEMPLATE_AULICK,
                 TEMPLATE_FOOTE
@@ -400,11 +407,11 @@ class GemsFarming(CampaignRun, Dock, EquipmentChange):
     def solve_hard_flagship_black(self):
         if self.hard_mode:
             self.ui_click(self.FLEET_ENTER_FLAGSHIP,
-                          appear_button=self.page_fleet_check_button, check_button=DOCK_CHECK,
+                          appear_button=page_fleet.check_button, check_button=DOCK_CHECK,
                           skip_first_screenshot=True)
             if self.appear(DOCK_SHIP_DOWN):
                 self.ui_click(DOCK_SHIP_DOWN,
-                              appear_button=DOCK_CHECK, check_button=self.page_fleet_check_button,
+                              appear_button=DOCK_CHECK, check_button=page_fleet.check_button,
                               skip_first_screenshot=True)
             else:
                 self.ui_back(check_button=FLEET_PREPARATION)
@@ -422,7 +429,7 @@ class GemsFarming(CampaignRun, Dock, EquipmentChange):
         """
         self.solve_hard_flagship_black()
         self.ui_click(self.FLEET_ENTER_FLAGSHIP,
-                      appear_button=self.page_fleet_check_button, check_button=DOCK_CHECK, skip_first_screenshot=True)
+                      appear_button=page_fleet.check_button, check_button=DOCK_CHECK, skip_first_screenshot=True)
 
         # self.dock_filter_set(
         #     index='cv', rarity='common', extra='enhanceable', sort='total')
@@ -458,7 +465,7 @@ class GemsFarming(CampaignRun, Dock, EquipmentChange):
                 if self.hard_mode:
                     raise RequestHumanTakeover
                 self._dock_reset()
-                self.ui_back(check_button=self.page_fleet_check_button)
+                self.ui_back(check_button=page_fleet.check_button)
             if self.hard_mode:
                 self.FLEET_ENTER_FLAGSHIP = self._FLEET_ENTER_FLAGSHIP
             return False
@@ -466,11 +473,11 @@ class GemsFarming(CampaignRun, Dock, EquipmentChange):
     def solve_hard_vanguard_black(self):
         if self.hard_mode:
             self.ui_click(self.FLEET_ENTER,
-                          appear_button=self.page_fleet_check_button, check_button=DOCK_CHECK,
+                          appear_button=page_fleet.check_button, check_button=DOCK_CHECK,
                           skip_first_screenshot=True)
             if self.appear(DOCK_SHIP_DOWN):
                 self.ui_click(DOCK_SHIP_DOWN,
-                              appear_button=DOCK_CHECK, check_button=self.page_fleet_check_button,
+                              appear_button=DOCK_CHECK, check_button=page_fleet.check_button,
                               skip_first_screenshot=True)
             else:
                 self.ui_back(check_button=FLEET_PREPARATION)
@@ -488,7 +495,7 @@ class GemsFarming(CampaignRun, Dock, EquipmentChange):
         """
         self.solve_hard_vanguard_black()
         self.ui_click(self.FLEET_ENTER,
-                      appear_button=self.page_fleet_check_button, check_button=DOCK_CHECK, skip_first_screenshot=True)
+                      appear_button=page_fleet.check_button, check_button=DOCK_CHECK, skip_first_screenshot=True)
         # self.dock_filter_set(
         #     index='dd', rarity='common', faction='eagle', extra='can_limit_break')
 
@@ -530,7 +537,7 @@ class GemsFarming(CampaignRun, Dock, EquipmentChange):
                 if self.hard_mode:
                     raise RequestHumanTakeover
                 self._dock_reset()
-                self.ui_back(check_button=self.page_fleet_check_button)
+                self.ui_back(check_button=page_fleet.check_button)
             if self.hard_mode:
                 self.FLEET_ENTER = self._FLEET_ENTER
             return False
