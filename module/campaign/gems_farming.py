@@ -29,7 +29,7 @@ from module.config.config import deep_get
 import inflection
 from module.ui.page import page_fleet
 
-SIM_VALUE = 0.95
+SIM_VALUE = 0.92
 
 
 class GemsCampaignOverride(CampaignBase):
@@ -77,7 +77,7 @@ class GemsCampaignOverride(CampaignBase):
             raise CampaignEnd('Emotion withdraw')
 
 
-class GemsFarming(CampaignRun, Dock, EquipmentChange):
+class GemsFarming(CampaignRun, EquipmentChange, Dock):
 
     def event_hard_mode_override(self):
         HARDMODEMAPS = [
