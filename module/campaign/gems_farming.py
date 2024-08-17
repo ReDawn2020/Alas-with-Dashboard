@@ -383,7 +383,14 @@ class GemsFarming(CampaignRun, Dock, EquipmentChange):
         """
         Returns the corresponding template list based on CommonDD
         """
-        if common_dd == 'aulick_or_foote':
+        if common_dd == 'any':
+            return [
+                TEMPLATE_CASSIN_1, TEMPLATE_CASSIN_2,
+                TEMPLATE_DOWNES_1, TEMPLATE_DOWNES_2,
+                TEMPLATE_AULICK,
+                TEMPLATE_FOOTE
+            ]
+        elif common_dd == 'aulick_or_foote':
             return [
                 TEMPLATE_AULICK,
                 TEMPLATE_FOOTE
