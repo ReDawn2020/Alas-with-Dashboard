@@ -39,6 +39,24 @@ class ExerciseCombat(HpDaemon, OpponentChoose, ExerciseEquipment):
             if self.appear(PAUSE):
                 break
 
+    def handle_combat_quit(self, offset=(20, 20),interval=3):
+        Timer = self.get_interval_timer(QUIT, interval=interval)
+        if not timer.reached():
+            return False
+        if QUIT.match_luma(self.device.image, offset=offset):
+            self.device.click(QUIT)
+            time.reset()
+            return True
+        if QUIT_New.match_luma(self.device.image, offset=offset):
+            self.device.click(QUIT_New)
+            time.reset()
+            return True
+        if QUIT_Iridescent_Fantasy.match_luma(self.device.image, offset=offset):
+            self.device.click(QUIT_Iridescent_Fantasy)
+            time.reset()
+            return True
+        return False
+
     def _combat_execute(self):
         """
         Returns:
