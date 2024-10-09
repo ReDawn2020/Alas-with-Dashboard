@@ -40,7 +40,7 @@ class ExerciseCombat(HpDaemon, OpponentChoose, ExerciseEquipment):
                 break
 
     def handle_combat_quit(self, offset=(20, 20),interval=3):
-        Timer = self.get_interval_timer(QUIT, interval=interval)
+        timer = self.get_interval_timer(QUIT, interval=interval)
         if not timer.reached():
             return False
         if QUIT.match_luma(self.device.image, offset=offset):
