@@ -11,7 +11,7 @@ class GeneratedConfig:
 
     # Group `Scheduler`
     Scheduler_Enable = False  # True, False
-    Scheduler_NextRun = datetime.datetime(2020, 1, 1, 0, 0)
+    Scheduler_NextRun = datetime.datetime(2023, 1, 1, 0, 0)
     Scheduler_Command = 'Alas'
     Scheduler_SuccessInterval = 0
     Scheduler_FailureInterval = 120
@@ -20,7 +20,7 @@ class GeneratedConfig:
     # Group `Emulator`
     Emulator_Serial = 'auto'
     Emulator_PackageName = 'auto'  # auto, com.bilibili.azurlane, com.YoStarEN.AzurLane, com.YoStarJP.AzurLane, com.hkmanjuu.azurlane.gp, com.bilibili.blhx.huawei, com.bilibili.blhx.mi, com.tencent.tmgp.bilibili.blhx, com.bilibili.blhx.baidu, com.bilibili.blhx.qihoo, com.bilibili.blhx.nearme.gamecenter, com.bilibili.blhx.vivo, com.bilibili.blhx.mz, com.bilibili.blhx.dl, com.bilibili.blhx.lenovo, com.bilibili.blhx.uc, com.bilibili.blhx.mzw, com.yiwu.blhx.yx15, com.bilibili.blhx.m4399, com.bilibili.blhx.bilibiliMove, com.hkmanjuu.azurlane.gp.mc
-    Emulator_ServerName = 'disabled'  # disabled, cn_android-0, cn_android-1, cn_android-2, cn_android-3, cn_android-4, cn_android-5, cn_android-6, cn_android-7, cn_android-8, cn_android-9, cn_android-10, cn_android-11, cn_android-12, cn_android-13, cn_android-14, cn_android-15, cn_android-16, cn_android-17, cn_android-18, cn_android-19, cn_android-20, cn_android-21, cn_android-22, cn_android-23, cn_android-24, cn_ios-0, cn_ios-1, cn_ios-2, cn_ios-3, cn_ios-4, cn_ios-5, cn_ios-6, cn_ios-7, cn_ios-8, cn_ios-9, cn_ios-10, cn_channel-0, cn_channel-1, cn_channel-2, cn_channel-3, cn_channel-4, en-0, en-1, en-2, en-3, en-4, en-5, jp-0, jp-1, jp-2, jp-3, jp-4, jp-5, jp-6, jp-7, jp-8, jp-9, jp-10, jp-11, jp-12, jp-13, jp-14, jp-15, jp-16, jp-17
+    Emulator_ServerName = 'disabled'  # disabled, cn_android-0, cn_android-1, cn_android-2, cn_android-3, cn_android-4, cn_android-5, cn_android-6, cn_android-7, cn_android-8, cn_android-9, cn_android-10, cn_android-11, cn_android-12, cn_android-13, cn_android-14, cn_android-15, cn_android-16, cn_android-17, cn_android-18, cn_android-19, cn_android-20, cn_android-21, cn_android-22, cn_android-23, cn_android-24, cn_android-25, cn_ios-0, cn_ios-1, cn_ios-2, cn_ios-3, cn_ios-4, cn_ios-5, cn_ios-6, cn_ios-7, cn_ios-8, cn_ios-9, cn_ios-10, cn_channel-0, cn_channel-1, cn_channel-2, cn_channel-3, cn_channel-4, en-0, en-1, en-2, en-3, en-4, en-5, jp-0, jp-1, jp-2, jp-3, jp-4, jp-5, jp-6, jp-7, jp-8, jp-9, jp-10, jp-11, jp-12, jp-13, jp-14, jp-15, jp-16, jp-17
     Emulator_ScreenshotMethod = 'auto'  # auto, ADB, ADB_nc, uiautomator2, aScreenCap, aScreenCap_nc, DroidCast, DroidCast_raw, scrcpy, nemu_ipc, ldopengl
     Emulator_ControlMethod = 'MaaTouch'  # ADB, uiautomator2, minitouch, Hermit, MaaTouch
     Emulator_ScreenshotDedithering = False
@@ -40,10 +40,6 @@ class GeneratedConfig:
     # Group `Optimization`
     Optimization_ScreenshotInterval = 0.3
     Optimization_CombatScreenshotInterval = 1.0
-    Optimization_ClickMaxRecord = 15
-    Optimization_SingleButtonMaxCount = 12
-    Optimization_MultiButtonMaxCount1 = 6
-    Optimization_MultiButtonMaxCount2 = 6
     Optimization_TaskHoardingDuration = 0
     Optimization_WhenTaskQueueEmpty = 'goto_main'  # stay_there, goto_main, close_game
 
@@ -89,7 +85,7 @@ class GeneratedConfig:
     # Group `StopCondition`
     StopCondition_OilLimit = 1000
     StopCondition_RunCount = 0
-    StopCondition_MapAchievement = 'non_stop'  # non_stop, 100_percent_clear, map_3_stars, threat_safe, threat_safe_without_3_stars
+    StopCondition_MapAchievement = 'non_stop'  # non_stop, 100_percent_clear, threat_safe_without_3_stars, map_3_stars, threat_safe
     StopCondition_StageIncrease = False
     StopCondition_GetNewShip = False
     StopCondition_ReachLevel = 0
@@ -114,12 +110,12 @@ class GeneratedConfig:
     # Group `Emotion`
     Emotion_Mode = 'calculate'  # calculate, ignore, calculate_ignore
     Emotion_Fleet1Value = 119
-    Emotion_Fleet1Record = datetime.datetime(2020, 1, 1, 0, 0)
+    Emotion_Fleet1Record = datetime.datetime(2023, 1, 1, 0, 0)
     Emotion_Fleet1Control = 'prevent_yellow_face'  # keep_exp_bonus, prevent_green_face, prevent_yellow_face, prevent_red_face
     Emotion_Fleet1Recover = 'not_in_dormitory'  # not_in_dormitory, dormitory_floor_1, dormitory_floor_2
     Emotion_Fleet1Oath = False
     Emotion_Fleet2Value = 119
-    Emotion_Fleet2Record = datetime.datetime(2020, 1, 1, 0, 0)
+    Emotion_Fleet2Record = datetime.datetime(2023, 1, 1, 0, 0)
     Emotion_Fleet2Control = 'prevent_yellow_face'  # keep_exp_bonus, prevent_green_face, prevent_yellow_face, prevent_red_face
     Emotion_Fleet2Recover = 'not_in_dormitory'  # not_in_dormitory, dormitory_floor_1, dormitory_floor_2
     Emotion_Fleet2Oath = False
@@ -156,33 +152,16 @@ class GeneratedConfig:
     GemsFarming_CommonCV = 'any'  # any, langley, bogue, ranger, hermes
     GemsFarming_ChangeVanguard = 'ship'  # disabled, ship, ship_equip
     GemsFarming_CommonDD = 'any'  # any, favourite, aulick_or_foote, cassin_or_downes, z20_or_z21
-    GemsFarming_ALLowLowVanguardLevel = True
-    GemsFarming_FleetNumberInHardMode = 0  # 0, 1, 2
-    GemsFarming_StopIFAutoNotEnsured = True
     GemsFarming_CommissionLimit = True
-
-    # Group `FlagshipFilter`
-    FlagshipFilter_Sort = 'default'  # default, rarity, level, total, join, intimacy, stat
-    FlagshipFilter_Index = 'default'  # default, all, vanguard, main, dd, cl, ca, bb, cv, repair, ss, others, not_available
-    FlagshipFilter_Faction = 'default'  # default, all, eagle, royal, sakura, iron, dragon, sardegna, northern, iris, vichya, other, not_available
-    FlagshipFilter_Rarity = 'default'  # default, all, common, rare, elite, super_rare, ultra
-    FlagshipFilter_Extra = 'default'  # default, no_limit, has_skin, can_retrofit, enhanceable, can_limit_break, not_level_max, can_awaken, can_awaken_plus, special, oath_skin, not_available
-
-    # Group `VanguardFilter`
-    VanguardFilter_Sort = 'default'  # default, rarity, level, total, join, intimacy, stat
-    VanguardFilter_Index = 'default'  # default, all, vanguard, main, dd, cl, ca, bb, cv, repair, ss, others, not_available
-    VanguardFilter_Faction = 'default'  # default, all, eagle, royal, sakura, iron, dragon, sardegna, northern, iris, vichya, other, not_available
-    VanguardFilter_Rarity = 'default'  # default, all, common, rare, elite, super_rare, ultra
-    VanguardFilter_Extra = 'default'  # default, no_limit, has_skin, can_retrofit, enhanceable, can_limit_break, not_level_max, can_awaken, can_awaken_plus, special, oath_skin, not_available
 
     # Group `EventGeneral`
     EventGeneral_PtLimit = 0
-    EventGeneral_TimeLimit = datetime.datetime(2020, 1, 1, 0, 0)
+    EventGeneral_TimeLimit = datetime.datetime(2023, 1, 1, 0, 0)
 
     # Group `TaskBalancer`
     TaskBalancer_Enable = False
     TaskBalancer_CoinLimit = 10000
-    TaskBalancer_TaskCall = 'Main'  # Main, Main2, Main3
+    TaskBalancer_TaskCall = 'Main'  # MainNormal, MainHard, Main, Main2
 
     # Group `EventDaily`
     EventDaily_StageFilter = 'A1 > A2 > A3'
@@ -250,6 +229,7 @@ class GeneratedConfig:
     MeowfficerTrain_RetainTalentedGold = True
     MeowfficerTrain_RetainTalentedPurple = True
     MeowfficerTrain_EnhanceIndex = 1
+    MeowfficerTrain_MaxFeedLevel = 5
 
     # Group `GuildLogistics`
     GuildLogistics_Enable = True
@@ -275,7 +255,7 @@ class GeneratedConfig:
     GeneralShop_UseGems = False
     GeneralShop_Refresh = False
     GeneralShop_BuySkinBox = False
-    GeneralShop_ConsumeCoins = 550000
+    GeneralShop_ConsumeCoins = False
     GeneralShop_Filter = 'BookRedT3 > BookYellowT3 > BookBlueT3 > BookRedT2\n> Cube\n> FoodT6 > FoodT5'
 
     # Group `GuildShop`
@@ -314,13 +294,13 @@ class GeneratedConfig:
     ShipyardDr_ResearchSeries = 2  # 2, 3
     ShipyardDr_ShipIndex = 0  # 0, 1, 2, 3, 4, 5, 6
     ShipyardDr_BuyAmount = 2
-    ShipyardDr_LastRun = datetime.datetime(2020, 1, 1, 0, 0)
+    ShipyardDr_LastRun = datetime.datetime(2023, 1, 1, 0, 0)
 
     # Group `Shipyard`
     Shipyard_ResearchSeries = 1  # 1, 2, 3, 4
     Shipyard_ShipIndex = 0  # 0, 1, 2, 3, 4, 5, 6
     Shipyard_BuyAmount = 2
-    Shipyard_LastRun = datetime.datetime(2020, 1, 1, 0, 0)
+    Shipyard_LastRun = datetime.datetime(2023, 1, 1, 0, 0)
 
     # Group `Gacha`
     Gacha_Pool = 'light'  # light, heavy, special, event, wishing_well
@@ -348,6 +328,9 @@ class GeneratedConfig:
     # Group `Minigame`
     Minigame_Collect = False
 
+    # Group `DashboardUpdate`
+    DashboardUpdate_Update = True
+
     # Group `Daily`
     Daily_UseDailySkip = True
     Daily_EscortMission = 'first'  # skip, first, second, third
@@ -369,14 +352,13 @@ class GeneratedConfig:
     Hard_HardFleet = 1  # 1, 2
 
     # Group `Exercise`
-    Exercise_DelayUntilHoursBeforeNextUpdate = 12  # 1, 2, 3, 4, 5, 12
     Exercise_OpponentChooseMode = 'max_exp'  # max_exp, easiest, leftmost, easiest_else_exp
     Exercise_OpponentTrial = 1
     Exercise_ExerciseStrategy = 'aggressive'  # aggressive, fri18, sat0, sat12, sat18, sun0, sun12, sun18
     Exercise_LowHpThreshold = 0.4
     Exercise_LowHpConfirmWait = 0.1
     Exercise_OpponentRefreshValue = 0
-    Exercise_OpponentRefreshRecord = datetime.datetime(2020, 1, 1, 0, 0)
+    Exercise_OpponentRefreshRecord = datetime.datetime(2023, 1, 1, 0, 0)
 
     # Group `Sos`
     Sos_Chapter = 3  # 3, 4, 5, 6, 7, 8, 9, 10
@@ -442,9 +424,6 @@ class GeneratedConfig:
     OpsiMeowfficerFarming_HazardLevel = 5  # 3, 4, 5, 6, 10
     OpsiMeowfficerFarming_TargetZone = 0
 
-    # Group `HigherPriority`
-    HigherPriority_Enable = False
-
     # Group `OpsiHazard1Leveling`
     OpsiHazard1Leveling_TargetZone = 0  # 0, 44, 22
 
@@ -461,121 +440,90 @@ class GeneratedConfig:
 
     # Group `AzurLaneUncensored`
     AzurLaneUncensored_Repository = 'https://gitee.com/LmeSzinc/AzurLaneUncensored'
+    AzurLaneUncensored_Option = 'all'  # all, main, only_patch
 
     # Group `GameManager`
     GameManager_AutoRestart = True
 
-    # Group `GGHandler`
-    GGHandler_Enabled = False
-    GGHandler_GGMethod = 'u2'  # u2
-    GGHandler_RestartATX = False
-    GGHandler_GGPackageName = 'com.'
-    GGHandler_AutoRestartGG = False
-    GGHandler_RestartEverytime = True
-    GGHandler_RepushLua = True
-    GGHandler_GGMultiplyingFactor = 200
-    GGHandler_Timeout = 1200
-    GGHandler_DisabledTask = 'disable_all_dangerous_task'  # disable_all_dangerous_task, disable_guild_and_dangerous, disable_exercise, enable_all
+    # Group `GGManager`
+    GGManager_Enable = False
+    GGManager_RestartEverytime = True
+    GGManager_GGMultiplyingFactor = 200
+    GGManager_GGAction = 'auto'  # auto, manual
+    GGManager_GGLuapath = None
+    GGManager_GGLuapathRecord = False
+    GGManager_GGPackageName = 'com.'
+    GGManager_GGLowLimit = 500
+    GGManager_DisabledTask = 'disable_all_dangerous_task'  # disable_guild_and_dangerous, disable_all_dangerous_task, disable_meta_and_exercise, disable_exercise, enable_all
 
     # Group `PowerLimit`
     PowerLimit_Exercise = 16500
     PowerLimit_Raid = 16500
     PowerLimit_Ash = 16500
-
-    # Group `ChangeShip`
-    ChangeShip_Enable = False
-    ChangeShip_PushLua = False
-    ChangeShip_Timeout = 90
-    ChangeShip_ShipData = '106021;1;6;4\n107041;1;6;4\n206011;1;6;4\n107011;1;6;4\n105011;1;5;6\n105021;1;5;6'
-
-    # Group `ChangeAttribute`
-    ChangeAttribute_Enable = False
-    ChangeAttribute_PushLua = False
-    ChangeAttribute_Timeout = 600
-    ChangeAttribute_ShipData = None
-
-    # Group `InfiniteDelay`
-    InfiniteDelay_Commission = False
-    InfiniteDelay_Research = False
-    InfiniteDelay_Reward = False
-
-    # Group `TurnOffForcedOnSettings`
-    TurnOffForcedOnSettings_OpsiMeowfficerFarmingFromOpsiHazard1Leveling = False
-    TurnOffForcedOnSettings_OpsiHazard1LevelingYellowCoinLimit = False
+    PowerLimit_Coalition = 16500
 
     # Group `Oil`
     Oil_Value = 0
     Oil_Limit = 0
     Oil_Color = '^000000'
-    Oil_Record = datetime.datetime(2020, 1, 1, 0, 0)
+    Oil_Record = datetime.datetime(2023, 1, 1, 0, 0)
 
     # Group `Coin`
     Coin_Value = 0
     Coin_Limit = 0
-    Coin_Color = '^000000'
-    Coin_Record = datetime.datetime(2020, 1, 1, 0, 0)
+    Coin_Color = '^FFAA33'
+    Coin_Record = datetime.datetime(2023, 1, 1, 0, 0)
 
     # Group `Gem`
     Gem_Value = 0
-    Gem_Color = '^000000'
-    Gem_Record = datetime.datetime(2020, 1, 1, 0, 0)
+    Gem_Color = '^FF3333'
+    Gem_Record = datetime.datetime(2023, 1, 1, 0, 0)
 
     # Group `Pt`
     Pt_Value = 0
-    Pt_Color = '^000000'
-    Pt_Record = datetime.datetime(2020, 1, 1, 0, 0)
+    Pt_Color = '^00BFFF'
+    Pt_Record = datetime.datetime(2023, 1, 1, 0, 0)
 
     # Group `YellowCoin`
     YellowCoin_Value = 0
-    YellowCoin_Color = '^000000'
-    YellowCoin_Record = datetime.datetime(2020, 1, 1, 0, 0)
+    YellowCoin_Color = '^FF8800'
+    YellowCoin_Record = datetime.datetime(2023, 1, 1, 0, 0)
 
     # Group `PurpleCoin`
     PurpleCoin_Value = 0
-    PurpleCoin_Color = '^000000'
-    PurpleCoin_Record = datetime.datetime(2020, 1, 1, 0, 0)
+    PurpleCoin_Color = '^7700BB'
+    PurpleCoin_Record = datetime.datetime(2023, 1, 1, 0, 0)
 
     # Group `ActionPoint`
     ActionPoint_Value = 0
     ActionPoint_Total = 0
-    ActionPoint_Color = '^000000'
-    ActionPoint_Record = datetime.datetime(2020, 1, 1, 0, 0)
+    ActionPoint_Color = '^0000FF'
+    ActionPoint_Record = datetime.datetime(2023, 1, 1, 0, 0)
 
     # Group `Merit`
     Merit_Value = 0
-    Merit_Color = '^000000'
-    Merit_Record = datetime.datetime(2020, 1, 1, 0, 0)
+    Merit_Color = '^FFFF00'
+    Merit_Record = datetime.datetime(2023, 1, 1, 0, 0)
 
     # Group `Cube`
     Cube_Value = 0
-    Cube_Color = '^000000'
-    Cube_Record = datetime.datetime(2020, 1, 1, 0, 0)
+    Cube_Color = '^33FFFF'
+    Cube_Record = datetime.datetime(2023, 1, 1, 0, 0)
 
     # Group `Core`
     Core_Value = 0
-    Core_Color = '^000000'
-    Core_Record = datetime.datetime(2020, 1, 1, 0, 0)
+    Core_Color = '^AAAAAA'
+    Core_Record = datetime.datetime(2023, 1, 1, 0, 0)
 
     # Group `Medal`
     Medal_Value = 0
-    Medal_Color = '^000000'
-    Medal_Record = datetime.datetime(2020, 1, 1, 0, 0)
+    Medal_Color = '^FFDD00'
+    Medal_Record = datetime.datetime(2023, 1, 1, 0, 0)
 
     # Group `GuildCoin`
     GuildCoin_Value = 0
-    GuildCoin_Color = '^000000'
-    GuildCoin_Record = datetime.datetime(2020, 1, 1, 0, 0)
-
-    # Group `AutoRestart`
-    AutoRestart_Enabled = False
-    AutoRestart_AttemptsToRestart = 114514
-    AutoRestart_NotifyWhenAutoRestart = False
-
-    # Group `InstanceRestart`
-    InstanceRestart_Enabled = False
-    InstanceRestart_AttemptsToRestart = 114514
-    InstanceRestart_NotifyWhenAutoRestart = False
-    InstanceRestart_HasRestarted = 0
+    GuildCoin_Color = '^AAAAAA'
+    GuildCoin_Record = datetime.datetime(2023, 1, 1, 0, 0)
 
     # Group `Storage`
     Storage_Storage = {}

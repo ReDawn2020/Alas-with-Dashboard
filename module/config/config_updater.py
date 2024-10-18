@@ -4,7 +4,7 @@ from copy import deepcopy
 
 from cached_property import cached_property
 
-from deploy.Windows.utils import DEPLOY_TEMPLATE, poor_yaml_read, poor_yaml_write
+from deploy.utils import DEPLOY_TEMPLATE, poor_yaml_read, poor_yaml_write
 from module.base.timer import timer
 from module.config.env import IS_ON_PHONE_CLOUD
 from module.config.redirect_utils.utils import *
@@ -29,9 +29,8 @@ ARCHIVES_PREFIX = {
     'jp': '檔案 ',
     'tw': '檔案 '
 }
-MAINS = ['Main', 'Main2', 'Main3']
+MAINS = ['MainNormal', 'MainHard', 'Main', 'Main2']
 EVENTS = ['Event', 'Event2', 'Event3', 'EventA', 'EventB', 'EventC', 'EventD', 'EventSp']
-EVENT_DAILY = ['EventA', 'EventB', 'EventC', 'EventD', 'EventSp']
 GEMS_FARMINGS = ['GemsFarming']
 RAIDS = ['Raid', 'RaidDaily']
 WAR_ARCHIVES = ['WarArchives']
@@ -149,15 +148,6 @@ class ConfigGenerator:
         return read_file(filepath_argument('gui'))
 
     @cached_property
-    def dashboard(self):
-        """
-        <dashboard>
-          - <group>
-        """
-        return read_file(filepath_argument('dashboard'))
-
-
-    @cached_property
     @timer
     def args(self):
         """
@@ -171,12 +161,10 @@ class ConfigGenerator:
         """
         # Construct args
         data = {}
-        # Add dashboard to args
-        dashboard_and_task = {**self.task, **self.dashboard}
-        for path, groups in deep_iter(dashboard_and_task, depth=3):
-            if 'tasks' not in path and 'Dashboard' not in path:
+        for path, groups in deep_iter(self.task, depth=3):
+            if 'tasks' not in path:
                 continue
-            task = path[2] if 'tasks' in path else path[0]
+            task = path[2]
             # Add storage to all task
             groups.append('Storage')
             for group in groups:
@@ -294,15 +282,18 @@ class ConfigGenerator:
             if 'tasks' not in path:
                 continue
             task_group, _, task = path
-            deep_load(['Menu', task_group])
-            deep_load(['Task', task])
+            if task_group != 'Dashboard':
+                deep_load(['Menu', task_group])
+                deep_load(['Task', task])
         # Arguments
         visited_group = set()
+        dashboard_args = deep_get(read_file(filepath_argument("task")), 'Dashboard.tasks.Resource')
         for path, data in deep_iter(self.argument, depth=2):
-            if path[0] not in visited_group:
-                deep_load([path[0], '_info'])
-                visited_group.add(path[0])
-            deep_load(path)
+            if path[0] not in dashboard_args:
+                if path[0] not in visited_group:
+                    deep_load([path[0], '_info'])
+                    visited_group.add(path[0])
+                deep_load(path)
             if 'option' in data:
                 deep_load(path, words=data['option'], default=False)
         # Event names
@@ -373,17 +364,18 @@ class ConfigGenerator:
         """
         data = {}
         for task_group in self.task.keys():
-            value = deep_get(self.task, keys=[task_group, 'menu'])
-            if value not in ['collapse', 'list']:
-                value = 'collapse'
-            deep_set(data, keys=[task_group, 'menu'], value=value)
-            value = deep_get(self.task, keys=[task_group, 'page'])
-            if value not in ['setting', 'tool']:
-                value = 'setting'
-            deep_set(data, keys=[task_group, 'page'], value=value)
-            tasks = deep_get(self.task, keys=[task_group, 'tasks'], default={})
-            tasks = list(tasks.keys())
-            deep_set(data, keys=[task_group, 'tasks'], value=tasks)
+            if task_group != 'Dashboard':
+                value = deep_get(self.task, keys=[task_group, 'menu'])
+                if value not in ['collapse', 'list']:
+                    value = 'collapse'
+                deep_set(data, keys=[task_group, 'menu'], value=value)
+                value = deep_get(self.task, keys=[task_group, 'page'])
+                if value not in ['setting', 'tool']:
+                    value = 'setting'
+                deep_set(data, keys=[task_group, 'page'], value=value)
+                tasks = deep_get(self.task, keys=[task_group, 'tasks'], default={})
+                tasks = list(tasks.keys())
+                deep_set(data, keys=[task_group, 'tasks'], value=tasks)
 
         return data
 
@@ -498,22 +490,6 @@ class ConfigGenerator:
         update('template-docker-cn', docker, cn)
         update('template-linux', linux)
         update('template-linux-cn', linux, cn)
-
-        tpl = {
-            'Repository': '{{repository}}',
-            'GitExecutable': '{{gitExecutable}}',
-            'PythonExecutable': '{{pythonExecutable}}',
-            'AdbExecutable': '{{adbExecutable}}',
-            'Language': '{{language}}',
-            'Theme': '{{theme}}',
-        }
-        def update(file, *args):
-            new = deepcopy(template)
-            for dic in args:
-                new.update(dic)
-            poor_yaml_write(data=new, file=file)
-
-        update('./webapp/packages/main/public/deploy.yaml.tpl', tpl)
 
     def insert_package(self):
         option = deep_get(self.argument, keys='Emulator.PackageName.option')
@@ -640,8 +616,7 @@ class ConfigUpdater:
         # Update to latest event
         server = to_server(deep_get(new, 'Alas.Emulator.PackageName', 'cn'))
         if not is_template:
-            # for task in EVENTS + RAIDS + COALITIONS:
-            for task in RAIDS + COALITIONS + EVENT_DAILY:
+            for task in EVENTS + RAIDS + COALITIONS:
                 deep_set(new,
                          keys=f'{task}.Campaign.Event',
                          value=deep_get(self.args, f'{task}.Campaign.Event.{server}'))

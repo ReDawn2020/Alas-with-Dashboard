@@ -2,7 +2,6 @@
 # Define argument group of tasks.
 # --------------------
 
-
 # ==================== Alas ====================
 
 Alas:
@@ -22,9 +21,6 @@ Alas:
       - OldRetire
     Restart:
       - Scheduler
-      - RestartEmulator
-      - AutoRestart
-      - InstanceRestart
 
 # ==================== Farm ====================
 
@@ -32,6 +28,24 @@ Farm:
   menu: 'collapse'
   page: 'setting'
   tasks:
+    MainNormal:
+      - Scheduler
+      - Campaign
+      - StopCondition
+      - Fleet
+      - Submarine
+      - Emotion
+      - HpControl
+      - EnemyPriority
+    MainHard:
+      - Scheduler
+      - Campaign
+      - StopCondition
+      - Fleet
+      - Submarine
+      - Emotion
+      - HpControl
+      - EnemyPriority
     Main:
       - Scheduler
       - Campaign
@@ -50,20 +64,9 @@ Farm:
       - Emotion
       - HpControl
       - EnemyPriority
-    Main3:
-      - Scheduler
-      - Campaign
-      - StopCondition
-      - Fleet
-      - Submarine
-      - Emotion
-      - HpControl
-      - EnemyPriority
     GemsFarming:
       - Scheduler
       - GemsFarming
-      - FlagshipFilter
-      - VanguardFilter
       - Campaign
       - StopCondition
       - Fleet
@@ -270,6 +273,9 @@ DailyMission:
       - SupplyPack
     Minigame:
       - Scheduler
+    DashboardUpdate:
+      - Scheduler
+      - DashboardUpdate
 
 # ==================== Opsi ====================
 
@@ -314,7 +320,6 @@ Opsi:
       - Scheduler
       - OpsiStronghold
       - OpsiFleetFilter
-      - OpsiFleet
     OpsiMonthBoss:
       - Scheduler
       - OpsiMonthBoss
@@ -325,7 +330,6 @@ Opsi:
       - OpsiFleet
     OpsiHazard1Leveling:
       - Scheduler
-      - HigherPriority
       - OpsiHazard1Leveling
       - OpsiFleet
     OpsiCrossMonth:
@@ -347,10 +351,25 @@ Tool:
       - AzurLaneUncensored
     GameManager:
       - GameManager
-      - GGHandler
+    GGManager:
+      - GGManager
       - PowerLimit
-      - ChangeShip
-      - ChangeAttribute
-    SomethingSpecial:
-      - InfiniteDelay
-      - TurnOffForcedOnSettings
+
+# ==================== Dashboard ====================
+
+Dashboard:
+  page: 'dashboard'
+  tasks:
+    Resource:
+      - Oil
+      - Coin
+      - Gem
+      - Pt
+      - Cube
+      - ActionPoint
+      - YellowCoin
+      - PurpleCoin
+      - Core
+      - Medal
+      - Merit
+      - GuildCoin

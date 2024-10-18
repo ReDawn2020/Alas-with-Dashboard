@@ -6,8 +6,7 @@ from module.config.utils import (get_nearest_weekday_date,
                                  get_os_next_reset,
                                  get_os_reset_remain,
                                  get_server_next_update,
-                                 DEFAULT_TIME,
-                                 deep_get)
+                                 DEFAULT_TIME)
 from module.exception import RequestHumanTakeover, GameStuckError, ScriptError
 from module.logger import logger
 from module.map.map_grids import SelectedGrids
@@ -384,14 +383,13 @@ class OperationSiren(OSMap):
                     raise RequestHumanTakeover('wrong input, task stopped')
                 else:
                     logger.hr(f'OS meowfficer farming, zone_id={zone.zone_id}', level=1)
-                    self.globe_goto(zone)
+                    self.globe_goto(zone, refresh=True)
                     self.fleet_set(self.config.OpsiFleet_Fleet)
                     self.os_order_execute(
                         recon_scan=False,
                         submarine_call=self.config.OpsiFleet_Submarine)
                     self.run_auto_search()
-                    if not self.handle_after_auto_search():
-                        self.globe_goto(self.zone_nearest_azur_port(zone=zone))
+                    self.handle_after_auto_search()
                     self.config.check_task_switch()
             else:
                 zones = self.zone_select(hazard_level=self.config.OpsiMeowfficerFarming_HazardLevel) \
@@ -416,12 +414,8 @@ class OperationSiren(OSMap):
             OpsiGeneral_DoRandomMapEvent=True,
             OpsiGeneral_AkashiShopFilter='ActionPoint',
         )
-        IsDisableOpsiMeowfficerFarming = deep_get(self.config.data, "SomethingSpecial.TurnOffForcedOnSettings.OpsiMeowfficerFarmingFromOpsiHazard1Leveling")
-        if not IsDisableOpsiMeowfficerFarming:
-            if not self.config.is_task_enabled('OpsiMeowfficerFarming'):
-                self.config.cross_set(keys='OpsiMeowfficerFarming.Scheduler.Enable', value=True)
-        else:
-            logger.warning(f"Disable OpsiMeowfficerFarming that is set from OpsiHazard1Leveling : {IsDisableOpsiMeowfficerFarming}")
+        if not self.config.is_task_enabled('OpsiMeowfficerFarming'):
+            self.config.cross_set(keys='OpsiMeowfficerFarming.Scheduler.Enable', value=True)
         while True:
             # Limited action point preserve of hazard 1 to 200
             self.config.OS_ACTION_POINT_PRESERVE = 200
@@ -432,17 +426,13 @@ class OperationSiren(OSMap):
                 self.config.OS_ACTION_POINT_PRESERVE = 0
             logger.attr('OS_ACTION_POINT_PRESERVE', self.config.OS_ACTION_POINT_PRESERVE)
 
-            IsDisableOpsiHazard1LevelingYellowCoinLimit = deep_get(self.config.data, "SomethingSpecial.TurnOffForcedOnSettings.OpsiHazard1LevelingYellowCoinLimit")
-            if not IsDisableOpsiHazard1LevelingYellowCoinLimit:
-                if self.get_yellow_coins() < self.config.OS_CL1_YELLOW_COINS_PRESERVE:
-                    logger.info(f'Reach the limit of yellow coins, preserve={self.config.OS_CL1_YELLOW_COINS_PRESERVE}')
-                    with self.config.multi_set():
-                        self.config.task_delay(server_update=True)
-                        if not self.is_in_opsi_explore():
-                            self.config.task_call('OpsiMeowfficerFarming')
-                    self.config.task_stop()
-            else:
-                logger.warning(f"Disable OpsiHazard1Leveling yellow coin limit : {IsDisableOpsiHazard1LevelingYellowCoinLimit}")
+            if self.get_yellow_coins() < self.config.OS_CL1_YELLOW_COINS_PRESERVE:
+                logger.info(f'Reach the limit of yellow coins, preserve={self.config.OS_CL1_YELLOW_COINS_PRESERVE}')
+                with self.config.multi_set():
+                    self.config.task_delay(server_update=True)
+                    if not self.is_in_opsi_explore():
+                        self.config.task_call('OpsiMeowfficerFarming')
+                self.config.task_stop()
 
             self.get_current_zone()
 
@@ -452,7 +442,7 @@ class OperationSiren(OSMap):
             if self.config.OpsiGeneral_BuyActionPointLimit > 0:
                 keep_current_ap = False
             self.action_point_set(cost=70, keep_current_ap=keep_current_ap, check_rest_ap=True)
-            if self._action_point_total >= 3000 and not IsDisableOpsiMeowfficerFarming:
+            if self._action_point_total >= 3000:
                 with self.config.multi_set():
                     self.config.task_delay(server_update=True)
                     if not self.is_in_opsi_explore():

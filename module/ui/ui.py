@@ -3,7 +3,7 @@ from module.base.decorator import run_once
 from module.base.timer import Timer
 from module.combat.assets import GET_ITEMS_1, GET_ITEMS_2, GET_SHIP
 from module.exception import (GameNotRunningError, GamePageUnknownError,
-                              GameTooManyClickError)
+                              RequestHumanTakeover)
 from module.exercise.assets import EXERCISE_PREPARATION
 from module.freebies.assets import PURCHASE_POPUP
 from module.handler.assets import (AUTO_SEARCH_MENU_EXIT, BATTLE_PASS_NOTICE, GAME_TIPS, LOGIN_ANNOUNCE,
@@ -199,9 +199,9 @@ class UI(InfoHandler):
             if self.appear_then_click(GOTO_MAIN_WHITE, offset=(30, 30), interval=2):
                 timeout.reset()
                 continue
-            # if self.appear_then_click(RPG_HOME, offset=(30, 30), interval=2):
-            #     timeout.reset()
-            #     continue
+            if self.appear_then_click(RPG_HOME, offset=(30, 30), interval=2):
+                timeout.reset()
+                continue
             if self.ui_additional():
                 timeout.reset()
                 continue
@@ -378,7 +378,7 @@ class UI(InfoHandler):
                 return True
         if self.appear_then_click(LOGIN_RETURN_SIGN, offset=(30, 30), interval=3):
             return True
-        if self.appear(EVENT_LIST_CHECK, offset=(30, 30), interval=3):
+        if self.appear(EVENT_LIST_CHECK, offset=(30, 30), interval=5):
             logger.info(f'UI additional: {EVENT_LIST_CHECK} -> {GOTO_MAIN}')
             if self.appear_then_click(GOTO_MAIN, offset=(30, 30)):
                 return True
@@ -397,11 +397,11 @@ class UI(InfoHandler):
         if self.handle_popup_single_white():
             return True
         # Routed from confirm click
-        if self.appear(SHIPYARD_CHECK, offset=(30, 30), interval=3):
+        if self.appear(SHIPYARD_CHECK, offset=(30, 30), interval=5):
             logger.info(f'UI additional: {SHIPYARD_CHECK} -> {GOTO_MAIN}')
             if self.appear_then_click(GOTO_MAIN, offset=(30, 30)):
                 return True
-        if self.appear(META_CHECK, offset=(30, 30), interval=3):
+        if self.appear(META_CHECK, offset=(30, 30), interval=5):
             logger.info(f'UI additional: {META_CHECK} -> {GOTO_MAIN}')
             if self.appear_then_click(GOTO_MAIN, offset=(30, 30)):
                 return True
@@ -429,7 +429,7 @@ class UI(InfoHandler):
             logger.critical("Possible reason #1: You haven't set any fleets in operation siren")
             logger.critical(
                 "Possible reason #2: Your fleets haven't satisfied the level restrictions in operation siren")
-            raise GameTooManyClickError
+            raise RequestHumanTakeover
         if self.appear_then_click(RESET_TICKET_POPUP, offset=(30, 30), interval=3):
             return True
         if self.appear_then_click(RESET_FLEET_PREPARATION, offset=(30, 30), interval=3):
@@ -514,7 +514,8 @@ class UI(InfoHandler):
             # - Game client freezes at page_campaign W12, clicking anywhere on the screen doesn't get responses
             # - Restart game client again fix the issue
             logger.info("WITHDRAW button found, wait until map loaded to prevent bugs in game client")
-            self.device.sleep(3)
+            self.device.sleep(2)
+            self.device.screenshot()
             if self.appear_then_click(WITHDRAW, offset=(30, 30)):
                 self.interval_reset(WITHDRAW)
                 return True
@@ -535,8 +536,8 @@ class UI(InfoHandler):
             return True
 
         # RPG event (raid_20240328)
-        # if self.appear_then_click(RPG_STATUS_POPUP, offset=(30, 30), interval=3):
-        #     return True
+        if self.appear_then_click(RPG_STATUS_POPUP, offset=(30, 30), interval=3):
+            return True
 
         # Idle page
         if self.get_interval_timer(IDLE, interval=3).reached():
@@ -567,11 +568,13 @@ class UI(InfoHandler):
         for switch_button in page_main.links.values():
             if button == switch_button:
                 self.interval_reset(GET_SHIP)
+        if button in [MAIN_GOTO_REWARD, MAIN_GOTO_REWARD_WHITE]:
+            self.interval_reset(GET_SHIP)
         if button in [MAIN_GOTO_CAMPAIGN, MAIN_GOTO_CAMPAIGN_WHITE]:
             self.interval_reset(GET_SHIP)
             # Shinano event has the same title as raid
             self.interval_reset(RAID_CHECK)
         if button == SHOP_GOTO_SUPPLY_PACK:
             self.interval_reset(EXCHANGE_CHECK)
-        # if button in [RPG_GOTO_STAGE, RPG_GOTO_STORY, RPG_LEAVE_CITY]:
-        #     self.interval_timer[GET_SHIP.name] = Timer(5).reset()
+        if button in [RPG_GOTO_STAGE, RPG_GOTO_STORY, RPG_LEAVE_CITY]:
+            self.interval_timer[GET_SHIP.name] = Timer(5).reset()

@@ -9,7 +9,7 @@ from functools import partial
 from typing import Dict, List, Optional
 
 from pywebio import config as webconfig
-from pywebio.input import file_upload, input_group, input, select
+from pywebio.input import file_upload, input, input_group, select
 from pywebio.output import (
     Output,
     clear,
@@ -33,15 +33,7 @@ from pywebio.output import (
     use_scope,
 )
 from pywebio.pin import pin, pin_on_change
-from pywebio.session import (
-    go_app,
-    info,
-    local,
-    register_thread,
-    run_js,
-    set_env,
-    download,
-)
+from pywebio.session import (download, go_app, info, local, register_thread, run_js, set_env)
 
 import module.webui.lang as lang
 from module.config.config import AzurLaneConfig, Function
@@ -56,11 +48,10 @@ from module.config.utils import (
     filepath_args,
     filepath_config,
     read_file,
+    readable_time,
 )
-from module.config.utils import time_delta
-from module.log_res.log_res import LogRes
 from module.logger import logger
-from module.notify import handle_notify
+from module.log_res import LogRes
 from module.ocr.rpc import start_ocr_server_process, stop_ocr_server_process
 from module.submodule.submodule import load_config
 from module.submodule.utils import get_config_mod
@@ -68,7 +59,8 @@ from module.webui.base import Frame
 from module.webui.discord_presence import close_discord_rpc, init_discord_rpc
 from module.webui.fastapi import asgi_app
 from module.webui.lang import _t, t
-from module.webui.pin import put_input, put_select, pin_update
+from module.webui.patch import patch_executor
+from module.webui.pin import put_input, put_select
 from module.webui.process_manager import ProcessManager
 from module.webui.remote_access import RemoteAccess
 from module.webui.setting import State
@@ -98,30 +90,8 @@ from module.webui.widgets import (
     put_output,
 )
 
+patch_executor()
 task_handler = TaskHandler()
-
-
-def timedelta_to_text(delta=None):
-    time_delta_name_suffix_dict = {
-        'Y': 'YearsAgo',
-        'M': 'MonthsAgo',
-        'D': 'DaysAgo',
-        'h': 'HoursAgo',
-        'm': 'MinutesAgo',
-        's': 'SecondsAgo',
-    }
-    time_delta_name_prefix = 'Gui.Overview.'
-    time_delta_name_suffix = 'NoData'
-    time_delta_display = ''
-    if isinstance(delta, dict):
-        for _key in delta:
-            if delta[_key]:
-                time_delta_name_suffix = time_delta_name_suffix_dict[_key]
-                time_delta_display = delta[_key]
-                break
-    time_delta_display = str(time_delta_display)
-    time_delta_name = time_delta_name_prefix + time_delta_name_suffix
-    return time_delta_display + t(time_delta_name)
 
 
 class AlasGUI(Frame):
@@ -367,29 +337,6 @@ class AlasGUI(Frame):
             color="navigator",
         )
 
-    def one_click_clear_all_task(self):
-        def clear_all_task():
-            close_popup()
-
-            task_scheduler_list = [f"{i.command}.Scheduler.Enable" for i in
-                                   [*self.alas_config.waiting_task, *self.alas_config.pending_task,
-                                    self.alas_config.task]]
-            modified = dict(zip(task_scheduler_list, [[] for _ in range(len(task_scheduler_list))]))
-
-            self._save_config(modified, self.alas_config.config_name, load_config(self.alas_config.config_name))
-
-        with popup(t("Gui.Text.ClearAllTaskConfirm")):
-            put_buttons(
-                buttons=[
-                    {"label": t("Gui.Button.Confirm"), "value": "", "color": "primary"},
-                    {"label": t("Gui.Button.Cancel"), "value": "", "color": "danger"},
-                ],
-                onclick=[
-                    clear_all_task,
-                    close_popup,
-                ],
-            )
-
     @use_scope("content", clear=True)
     def alas_overview(self) -> None:
         self.init_menu(name="Overview")
@@ -403,11 +350,6 @@ class AlasGUI(Frame):
                 [
                     put_text(t("Gui.Overview.Scheduler")).style(
                         "font-size: 1.25rem; margin: auto .5rem auto;"
-                    ),
-                    put_button(
-                        label=t("Gui.Button.OneClickClear"),
-                        onclick=self.one_click_clear_all_task,
-                        color="on",
                     ),
                     put_scope("scheduler_btn"),
                 ],
@@ -453,7 +395,7 @@ class AlasGUI(Frame):
         self._log.dashboard_arg_group = LogRes(self.alas_config).groups
 
         with use_scope("logs"):
-            if 'Maa' in self.ALAS_ARGS:
+            if not 'Alas' in self.ALAS_ARGS:
                 put_scope(
                     "log-bar",
                     [
@@ -467,7 +409,7 @@ class AlasGUI(Frame):
                             ],
                         ),
                     ],
-                ),
+                )
             else:
                 put_scope(
                     "log-bar",
@@ -485,7 +427,7 @@ class AlasGUI(Frame):
                         put_html('<hr class="hr-group">'),
                         put_scope("dashboard"),
                     ],
-                ),
+                )
             put_scope("log", [put_html("")])
 
         log.console.width = log.get_width()
@@ -512,11 +454,10 @@ class AlasGUI(Frame):
         )
         self.task_handler.add(switch_scheduler.g(), 1, True)
         self.task_handler.add(switch_log_scroll.g(), 1, True)
-        if 'Maa' not in self.ALAS_ARGS:
+        if 'Alas' in self.ALAS_ARGS:
             self.task_handler.add(switch_dashboard.g(), 1, True)
-        self.task_handler.add(self.alas_update_overview_task, 10, True)
-        if 'Maa' not in self.ALAS_ARGS:
             self.task_handler.add(self.alas_update_dashboard, 10, True)
+        self.task_handler.add(self.alas_update_overview_task, 10, True)
         self.task_handler.add(log.put_log(self.alas), 0.25, True)
 
     def set_dashboard_display(self, b):
@@ -559,7 +500,6 @@ class AlasGUI(Frame):
             config_updater: AzurLaneConfig = State.config_updater,
     ) -> None:
         try:
-            skip_time_record = False
             valid = []
             invalid = []
             config = config_updater.read_file(config_name)
@@ -667,57 +607,42 @@ class AlasGUI(Frame):
         x = 0
         _num = 10000 if num is None else num
         _arg_group = self._log.dashboard_arg_group if groups_to_display is None else groups_to_display
-        time_now = datetime.now().replace(microsecond=0)
         for group_name in _arg_group:
-            group = deep_get(d=self.alas_config.data, keys=f'Dashboard.{group_name}')
+            group = LogRes(self.alas_config).group(group_name)
             if group is None:
                 continue
 
             value = str(group['Value'])
+            value_limit = ''
+            value_total = ''
             if 'Limit' in group.keys():
                 value_limit = f' / {group["Limit"]}'
-                value_total = ''
             elif 'Total' in group.keys():
                 value_total = f' ({group["Total"]})'
-                value_limit = ''
             elif group_name == 'Pt':
                 value_limit = ' / ' + re.sub(r'[,.\'"，。]', '',
                                              str(deep_get(self.alas_config.data, 'EventGeneral.EventGeneral.PtLimit')))
                 if value_limit == ' / 0':
                     value_limit = ''
-            else:
-                value_limit = ''
-                value_total = ''
-            # value = value + value_limit + value_total
 
-            value_time = group['Record']
-            if value_time is None or value_time == datetime(2020, 1, 1, 0, 0, 0):
-                value_time = datetime(2023, 1, 1, 0, 0, 0)
-
-            # Handle time delta
-            if value_time == datetime(2023, 1, 1, 0, 0, 0):
-                value = 'None'
-                delta = timedelta_to_text()
-            else:
-                delta = timedelta_to_text(time_delta(value_time - time_now))
+            value_time = str(group['Record'])
+            timedata = readable_time(value_time, value)
+            value =timedata['value']
+            time = timedata['time']
+            time_name = timedata['time_name']
+            delta = str(time) + t(f'Gui.Dashboard.{time_name}')
             if group_name not in self._log.last_display_time.keys():
                 self._log.last_display_time[group_name] = ''
             if self._log.last_display_time[group_name] == delta and not self._log.first_display:
                 continue
             self._log.last_display_time[group_name] = delta
 
-            # if self._log.first_display:
-            # Handle width
-            # value_width = len(value) * 0.7 + 0.6 if value != 'None' else 4.5
-            # value_width = str(value_width/1.12) + 'rem' if self.is_mobile else str(value_width) + 'rem'
             value_limit = '' if value == 'None' else value_limit
-            # limit_width = len(value_limit) * 0.7
-            # limit_width = str(limit_width) + 'rem'
             value_total = '' if value == 'None' else value_total
             limit_style = '--dashboard-limit--' if value_limit else '--dashboard-total--'
             value_limit = value_limit if value_limit else value_total
             # Handle dot color
-            _color = f"""background-color:{deep_get(d=group, keys='Color').replace('^', '#')}"""
+            _color = f"""background-color:{deep_get(group, 'Color').replace('^', '#')}"""
             color = f'<div class="status-point" style={_color}>'
             with use_scope(group_name, clear=True):
                 put_row(
@@ -730,15 +655,11 @@ class AlasGUI(Frame):
                                     [
                                         put_row(
                                             [
-                                                put_text(value
-                                                         ).style(f'--dashboard-value--'),
-                                                put_text(value_limit
-                                                         ).style(limit_style),
+                                                put_text(value).style("--dashboard-value--"),
+                                                put_text(value_limit).style(limit_style),
                                             ],
-                                        ).style('grid-template-columns:min-content auto;align-items: baseline;'),
-                                        put_text(
-                                            t(f'Gui.Overview.{group_name}') + " - " + delta
-                                        ).style('---dashboard-help--')
+                                        ).style("grid-template-columns:min-content auto;align-items: baseline;"),
+                                        put_text(t(f"Gui.Dashboard.{group_name}") + " - " + delta).style("---dashboard-help--")
                                     ],
                                     size="auto auto",
                                 ),
@@ -901,10 +822,10 @@ class AlasGUI(Frame):
             color="menu",
         ).style(f"--menu-Utils--")
 
-    def dev_translate(self) -> None:
-        go_app("translate", new_window=True)
-        lang.TRANSLATE_MODE = True
-        self.show()
+    # def dev_translate(self) -> None:
+    #     go_app("translate", new_window=True)
+    #     lang.TRANSLATE_MODE = True
+    #     self.show()
 
     @use_scope("content", clear=True)
     def dev_update(self) -> None:
@@ -1291,6 +1212,12 @@ class AlasGUI(Frame):
             Project repository 项目地址：`https://github.com/LmeSzinc/AzurLaneAutoScript`
             """
             ).style("text-align: center")
+            put_scope(
+                "wiki",
+                put_html(
+                    '<a href="https://iceynano.github.io/zh/" target="_blank"><p style="font-size:20px;font-weight:600">AzurLaneAutoScript Wiki</p></a><p style="font-size:20px;font-weight:600;color:red">本项目的任何修改与Alas无关！！！禁止将本项目使用于商业相关！！！</p>'
+                )
+            ).style("text-align: center")
 
         if lang.TRANSLATE_MODE:
             lang.reload()
@@ -1308,7 +1235,7 @@ class AlasGUI(Frame):
 
     def run(self) -> None:
         # setup gui
-        set_env(title="AlasGG", output_animation=False)
+        set_env(title="Alas", output_animation=False)
         add_css(filepath_css("alas"))
         if self.is_mobile:
             add_css(filepath_css("alas-mobile"))
@@ -1595,52 +1522,6 @@ def clearup():
     logger.info("Alas closed.")
 
 
-g_instance_watcher: threading.Thread = None
-g_instance_restart_too_many_times: List[str] = list()
-
-def instance_watcher_thread():
-    global g_instance_restart_too_many_times
-    while 1:
-        time.sleep(10)
-        try:
-            for instance in alas_instance():
-                ins = ProcessManager.get_manager(instance)
-                config = AzurLaneConfig(ins.config_name)
-
-                enabled = deep_get(config.data, "Restart.InstanceRestart.Enabled", False)
-
-                if enabled and ins.state == 3 and not ins.alive:
-                    attempts = deep_get(config.data, "Restart.InstanceRestart.AttemptsToRestart", 3)
-                    has_restarted = deep_get(config.data, "Restart.InstanceRestart.HasRestarted", 0)
-                    enable_notify = deep_get(config.data, "Restart.InstanceRestart.NotifyWhenAutoRestart", False)
-                    push_config = deep_get(config.data, "Alas.Error.OnePushConfig")
-
-                    if has_restarted <= attempts and ins.config_name not in g_instance_restart_too_many_times:
-                        ins.start("alas")
-                        config.modified["Restart.InstanceRestart.HasRestarted"] = has_restarted + 1
-                        config.save()
-
-                        if enable_notify:
-                            handle_notify(
-                                push_config,
-                                title=f"Alas <{ins.config_name}> instance auto restarted",
-                                content=f"Critical error occurred, instance restarted",
-                            )
-                    else:
-                        if ins.config_name not in g_instance_restart_too_many_times:
-                            g_instance_restart_too_many_times.append(ins.config_name)
-                            config.modified["Restart.InstanceRestart.HasRestarted"] = 0
-                            config.save()
-                            g_instance_restart_too_many_times.append(ins.config_name)
-                            handle_notify(
-                                push_config,
-                                title=f"Alas <{ins.config_name}> instance restarted too many times",
-                                content=f"Too many critical error occurred, instance restarted too many times",
-                            )
-        except:
-            ...
-
-
 def app():
     parser = argparse.ArgumentParser(description="Alas web service")
     parser.add_argument(
@@ -1679,11 +1560,6 @@ def app():
     logger.attr("Password", True if key else False)
     logger.attr("CDN", cdn)
     logger.attr("IS_ON_PHONE_CLOUD", IS_ON_PHONE_CLOUD)
-
-    global g_instance_watcher
-    if g_instance_watcher is None:
-        g_instance_watcher = threading.Thread(target=instance_watcher_thread)
-        g_instance_watcher.start()
 
     def index():
         if key is not None and not login(key):

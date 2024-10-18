@@ -1,5 +1,7 @@
 from datetime import datetime, timedelta
 
+import module.config.server as server
+
 from module.base.utils import image_left_strip
 from module.combat.combat import BATTLE_PREPARATION, Combat
 from module.config.utils import DEFAULT_TIME
@@ -49,18 +51,29 @@ class AshCombat(Combat):
         return False
 
     def handle_battle_preparation(self):
-
-        if self.appear(BATTLE_PREPARATION, offset=(20, 20)):
-            self.device.sleep(0.5)
-            self.device.screenshot()
-            # Power limit check
-            from module.gg_handler.gg_handler import GGHandler
-            GGHandler(config=self.config, device=self.device).power_limit('Ash')
-            if super().handle_battle_preparation():
-                return True
+        if super().handle_battle_preparation():
+            return True
 
         if self.appear_then_click(ASH_START, offset=(30, 30), interval=2):
-            return True
+            # Power limit check
+            while 1:
+                self.device.sleep(0.5)
+                self.device.screenshot()
+                if self.appear_then_click(ASH_START, offset=(30, 30), interval=2):
+                    continue
+                if super().handle_combat_automation_confirm():
+                    continue
+                if self.appear(BATTLE_PREPARATION):
+                    from module.gg_manager.gg_manager import GGManager
+                    gg_enable = self.config.cross_get('GGManager.GGManager.Enable', default=True)
+                    gg_restart = self.config.cross_get('GGManager.GGManager.RestartEverytime', default=True)
+                    if gg_enable and gg_restart:
+                        if GGManager(self.config, self.device).power_limit('Ash'):
+                            self.config.task_delay(minute=0.5)
+                            self.config.task_call('Restart')
+                            self.config.task_stop()
+                    return True
+
         if self.handle_get_items():
             return True
         if self.appear(BEACON_REWARD):
@@ -95,10 +108,16 @@ class OSAsh(UI, MapEventHandler):
             return 0
         if self.image_color_count(ASH_COLLECT_STATUS, color=(235, 235, 235), threshold=221, count=20):
             logger.info('Ash beacon status: light')
-            ocr_collect = DigitCounter(
-                ASH_COLLECT_STATUS, letter=(235, 235, 235), threshold=160, name='OCR_ASH_COLLECT_STATUS')
-            ocr_daily = DailyDigitCounter(
-                ASH_DAILY_STATUS, letter=(235, 235, 235), threshold=160, name='OCR_ASH_DAILY_STATUS')
+            if server.server != 'jp':
+                ocr_collect = DigitCounter(
+                    ASH_COLLECT_STATUS, letter=(235, 235, 235), threshold=160, name='OCR_ASH_COLLECT_STATUS')
+                ocr_daily = DailyDigitCounter(
+                    ASH_DAILY_STATUS, letter=(235, 235, 235), threshold=160, name='OCR_ASH_DAILY_STATUS')
+            else:
+                ocr_collect = DigitCounter(
+                    ASH_COLLECT_STATUS, letter=(193, 193, 193), threshold=160, name='OCR_ASH_COLLECT_STATUS')
+                ocr_daily = DailyDigitCounter(
+                    ASH_DAILY_STATUS, letter=(193, 193, 193), threshold=160, name='OCR_ASH_DAILY_STATUS')
         elif self.image_color_count(ASH_COLLECT_STATUS, color=(140, 142, 140), threshold=221, count=20):
             logger.info('Ash beacon status: gray')
             ocr_collect = DigitCounter(

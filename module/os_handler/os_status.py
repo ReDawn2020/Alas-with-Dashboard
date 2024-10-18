@@ -1,6 +1,8 @@
 import typing as t
 from datetime import datetime, timedelta
 
+import module.config.server as server
+
 from module.base.timer import Timer
 from module.config.config import Function
 from module.config.utils import get_server_next_update
@@ -10,9 +12,12 @@ from module.ocr.ocr import Digit
 from module.os_handler.assets import *
 from module.os_shop.assets import OS_SHOP_CHECK, OS_SHOP_PURPLE_COINS, SHOP_PURPLE_COINS, SHOP_YELLOW_COINS
 from module.ui.ui import UI
-from module.log_res.log_res import LogRes
+from module.log_res import LogRes
 
-OCR_SHOP_YELLOW_COINS = Digit(SHOP_YELLOW_COINS, letter=(239, 239, 239), threshold=160, name='OCR_SHOP_YELLOW_COINS')
+if server.server != 'jp':
+    OCR_SHOP_YELLOW_COINS = Digit(SHOP_YELLOW_COINS, letter=(239, 239, 239), threshold=160, name='OCR_SHOP_YELLOW_COINS')
+else:
+    OCR_SHOP_YELLOW_COINS = Digit(SHOP_YELLOW_COINS, letter=(193, 193, 193), threshold=160, name='OCR_SHOP_YELLOW_COINS')
 OCR_SHOP_PURPLE_COINS = Digit(SHOP_PURPLE_COINS, letter=(255, 255, 255), name='OCR_SHOP_PURPLE_COINS')
 OCR_OS_SHOP_PURPLE_COINS = Digit(OS_SHOP_PURPLE_COINS, letter=(255, 255, 255), name='OCR_OS_SHOP_PURPLE_COINS')
 
@@ -83,9 +88,11 @@ class OSStatus(UI):
 
     def get_purple_coins(self) -> int:
         if self.appear(OS_SHOP_CHECK):
-            return OCR_OS_SHOP_PURPLE_COINS.ocr(self.device.image)
+            amount = OCR_OS_SHOP_PURPLE_COINS.ocr(self.device.image)
         else:
-            return OCR_SHOP_PURPLE_COINS.ocr(self.device.image)
+            amount = OCR_SHOP_PURPLE_COINS.ocr(self.device.image)
+        LogRes(self.config).PurpleCoin = amount
+        return amount
 
     def os_shop_get_coins(self):
         self._shop_yellow_coins = self.get_yellow_coins()

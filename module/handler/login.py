@@ -17,24 +17,21 @@ from module.map.assets import *
 from module.ui.assets import *
 from module.ui.page import page_campaign_menu
 from module.ui.ui import UI
-from module.gg_handler.gg_handler import GGHandler
 
 
 class LoginHandler(UI):
-    _app_u2_family = ['uiautomator2', 'minitouch', 'scrcpy', 'MaaTouch']
-    have_been_reset = False
-
     def _handle_app_login(self):
         """
         Pages:
             in: Any page
             out: page_main
         """
-        logger.hr('App login')
-        GGHandler(config=self.config, device=self.device).handle_restart()
+        logger.hr('Game login')
+
         confirm_timer = Timer(1.5, count=4).start()
         orientation_timer = Timer(5)
         login_success = False
+
         while 1:
             # Watch device rotation
             if not login_success and orientation_timer.reached():
@@ -133,6 +130,8 @@ class LoginHandler(UI):
             self.device.stuck_record_clear()
             self.device.click_record_clear()
             try:
+                from module.gg_manager.gg_manager import GGManager
+                GGManager(self.config, self.device).handle_restart()
                 self._handle_app_login()
                 return True
             except (GameTooManyClickError, GameStuckError) as e:
@@ -146,30 +145,34 @@ class LoginHandler(UI):
         raise GameStuckError
 
     def app_stop(self):
-        if self.config.Emulator_ControlMethod in self._app_u2_family and not self.have_been_reset:
-            GGHandler(config=self.config, device=self.device).handle_u2_restart()
-            self.have_been_reset = True
-        logger.hr('App stop')
+        logger.hr('Game stop')
         self.device.app_stop()
 
     def app_start(self):
-        if self.config.Emulator_ControlMethod in self._app_u2_family and not self.have_been_reset:
-            GGHandler(config=self.config, device=self.device).handle_u2_restart()
-            self.have_been_reset = True
-        logger.hr('App start')
+        logger.hr('Game start')
         self.device.app_start()
         self.handle_app_login()
         # self.ensure_no_unfinished_campaign()
 
     def app_restart(self):
-        if self.config.Emulator_ControlMethod in self._app_u2_family and not self.have_been_reset:
-            GGHandler(config=self.config, device=self.device).handle_u2_restart()
-            self.have_been_reset = True
-        logger.hr('App restart')
+        logger.hr('Game restart')
         self.device.app_stop()
+        from module.gg_manager.gg_screenshot import GGScreenshot
+        GGScreenshot(config=self.config, device=self.device).gg_stop()
+        self.device.sleep(2)
         self.device.app_start()
         self.handle_app_login()
         # self.ensure_no_unfinished_campaign()
+        self.config.task_delay(server_update=True)
+
+    def app_restart_gg(self):
+        logger.hr('Game restart')
+        self.device.app_stop()
+        from module.gg_manager.gg_screenshot import GGScreenshot
+        GGScreenshot(config=self.config, device=self.device).gg_stop()
+        self.device.sleep(2)
+        self.device.app_start()
+        self.handle_app_login()
 
     def ensure_no_unfinished_campaign(self, confirm_wait=3):
         """
