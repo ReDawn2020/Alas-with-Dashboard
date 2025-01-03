@@ -31,12 +31,7 @@ class AssistantHandler:
         AssistantHandler.Asst = asst.Asst
         AssistantHandler.Message = utils.Message
         AssistantHandler.InstanceOptionType = utils.InstanceOptionType
-        try:
-            AssistantHandler.Asst.load(path, user_dir=path, incremental_path=incremental_path)
-        except OSError as e:
-            logger.critical(e)
-            logger.critical("MAA加载失败，请检查MAA本体能否正常打开")
-            raise RequestHumanTakeover
+        AssistantHandler.Asst.load(path, user_dir=path, incremental_path=incremental_path)
 
         AssistantHandler.ASST_HANDLER = None
 
