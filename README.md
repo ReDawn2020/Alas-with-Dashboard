@@ -9,5 +9,8 @@
 因为奇奇怪怪的错误，最新版本的ALAS 0.4.7 Fullcn无法使用，请自行寻找0.4.5版本进行安装，谢谢！！！
 
 如果愿意一起聊天或者让我白嫖请加入DISCORD，拜托了来个帕鲁维护吧，我不想努力了！！！
-https://discord.gg/HtRp5BRE
+
+如果你下载困难可以选择Gitee版本,已经添加自动同步
+
+交流区域：https://discord.gg/HtRp5BRE
 
