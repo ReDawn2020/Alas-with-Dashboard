@@ -24,7 +24,7 @@ class ManualConfig:
     > Daily > Hard > OpsiAshBeacon > OpsiAshAssist > OpsiMonthBoss
     > Sos > EventSp > EventA > EventB > EventC > EventD
     > RaidDaily > CoalitionSp > WarArchives > MaritimeEscort
-    > Event > Event2 > Event3 > Raid > Coalition > MainNormal > MainHard > Main > Main2
+    > Event > Event2 > Event3 > Raid > Hospital > Coalition > MainNormal > MainHard > Main > Main2
     > OpsiMeowfficerFarming
     > GemsFarming
     > OpsiHazard1Leveling
