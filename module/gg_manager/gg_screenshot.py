@@ -10,11 +10,9 @@ from module.handler.assets import *
 from module.gg_manager.assets import *
 from module.ui.assets import *
 from module.ui_white.assets import *
-from module.ocr.ocr import Ocr
 
 OCR_GG_FOLD = Digit(OCR_GG_FOLD, name='OCR_GG_FOLD', letter=(222, 228, 227), threshold=255)
 OCR_GG_FOLD_CHECK = Digit(OCR_GG_FOLD_CHECK, name= 'OCR_GG_FOLD_CHECK', letter=(222, 228, 227), threshold=255)
-LIST_OCR_PROCESSES = [GG_APP_SELECT_0, GG_APP_SELECT_1, GG_APP_SELECT_2, GG_APP_SELECT_3, GG_APP_SELECT_4, GG_APP_SELECT_5]
 
 class GGScreenshot(ModuleBase):
     count = 0
@@ -31,28 +29,6 @@ class GGScreenshot(ModuleBase):
         self.path_record = self.config.cross_get('GGManager.GGManager.GGLuapathRecord')
         self.luapath = "/sdcard/Alarms/Multiplier.lua"
 
-    def app_choose_then_click(self):
-        """
-        Use ocr to choose correct app for gg.
-        
-        Returns:
-            bool: True if app selected, False if not found
-        """
-        logger.info('App Choose')
-        # assuming only one app over GB is installed
-        ocr = Ocr(LIST_OCR_PROCESSES, name='OCR_GG_APP_SELECT', lang='cnocr', 
-                letter=(255, 255, 255), threshold=128, alphabet='GB')
-        result = ocr.ocr(self.device.image)
-        if not isinstance(result, list):
-            result = [result]
-        for i in range(len(result)):
-            if result[i].find('GB') != -1:
-                self.device.click(LIST_OCR_PROCESSES[i])
-                logger.info(f'App {i} selected')
-                return True
-        
-        return False
-
     def _enter_gg(self):
         """
         Page:
@@ -66,8 +42,7 @@ class GGScreenshot(ModuleBase):
             else:
                 self.device.sleep(0.5)
                 self.device.screenshot()
-            if self.appear(self.method[int(self.count)], offset=(20, 20)) and \
-                  self.method[int(self.count)].match_template_color(self.device.image):
+            if self.match_template_color(self.method[int(self.count)], offset=(20, 20)):
                 self.device.click(GG_ENTER_POS)
                 continue
             if self.appear_then_click(OIL_CLOSE, offset=(20, 20), interval=1):
@@ -87,24 +62,18 @@ class GGScreenshot(ModuleBase):
             else:
                 self.device.sleep(0.5)
                 self.device.screenshot()
-            # if self.appear(GG_APP_CHOOSE1, offset=(20, 20)):
-            #     if self.appear_then_click(GG_APP_CHOOSE0, offset=(20, 20), interval=1):
-            #         pass
-            #     else:
-            #         self.device.click(GG_APP_CHOOSE1)
-            #     logger.info('APP Choose')
-            #     continue
+            if self.appear(GG_APP_CHOOSE1, offset=(20, 20)):
+                if self.appear_then_click(GG_APP_CHOOSE0, offset=(20, 20), interval=1):
+                    pass
+                else:
+                    self.device.click(GG_APP_CHOOSE1)
+                logger.info('APP Choose')
+                continue
             if not self.appear(GG_APP_ENTER, offset=(20, 20)) and \
-                self.appear(GG_SEARCH_MODE_CONFIRM, offset=(10, 10)) and \
-                    GG_SEARCH_MODE_CONFIRM.match_template_color(self.device.image):
+                self.match_template_color(GG_SEARCH_MODE_CONFIRM, offset=(10, 10)):
                 logger.info('Select APP')
                 self.device.click(GG_APP_RECHOOSE)
                 continue
-            self.app_choose_then_click()
-            # if self.appear(GG_APP_ENTER, offset=(20, 20)):
-            #     logger.info('APP Enter appeared')
-            # else:
-            #     logger.info('APP Enter not appeared')
             if self.appear(GG_NOTRUN, offset=(20, 20)):
                 self.gg_restart()
                 self.device.sleep(0.5)
@@ -112,8 +81,7 @@ class GGScreenshot(ModuleBase):
                 self.gg_open()
                 self._enter_gg()
                 continue
-            if self.appear(GG_APP_ENTER, offset=(20, 20)) and \
-                GG_APP_ENTER.match_template_color(self.device.image):
+            if self.match_template_color(GG_APP_ENTER, offset=(20, 20)):
                 logger.info('APP Enter')
                 return True
 
@@ -131,17 +99,14 @@ class GGScreenshot(ModuleBase):
             else:
                 self.device.sleep(0.5)
                 self.device.screenshot()
-            # if self.appear(GG_APP_CHOOSE1, offset=(20, 20)):
-            #     if self.appear_then_click(GG_APP_CHOOSE0, offset=(20, 20), interval=1):
-            #         pass
-            #     else:
-            #         self.device.click(GG_APP_CHOOSE1)
-            #     logger.info('APP Choose')
-            #     continue
-            # self.app_choose_then_click()
-
-            if self.appear(GG_SEARCH_MODE_CONFIRM, offset=(10, 10)) and \
-                GG_SEARCH_MODE_CONFIRM.match_template_color(self.device.image):
+            if self.appear(GG_APP_CHOOSE1, offset=(20, 20)):
+                if self.appear_then_click(GG_APP_CHOOSE0, offset=(20, 20), interval=1):
+                    pass
+                else:
+                    self.device.click(GG_APP_CHOOSE1)
+                logger.info('APP Choose')
+                continue
+            if self.match_template_color(GG_SEARCH_MODE_CONFIRM, offset=(10, 10)):
                 self.device.click(GG_SCRIPT_ENTER_POS)
                 logger.info('Enter script choose')
                 continue
@@ -293,8 +258,7 @@ class GGScreenshot(ModuleBase):
                 self.device.screenshot()
             if count > 2:
                 for i in range(len(self.method)):
-                    if self.appear(self.method[int(i)], offset=(20, 20)) and \
-                        self.method[int(i)].match_template_color(self.device.image):
+                    if self.match_template_color(self.method[int(i)], offset=(20, 20)):
                         self.count = i
                         return True
             if self.appear_then_click(GG_SKIP0, offset=(20, 20), interval=1):
@@ -303,8 +267,7 @@ class GGScreenshot(ModuleBase):
             if self.appear_then_click(GG_SKIP1, offset=(20, 20), interval=1):
                 count += 1
                 continue
-            if self.appear(GG_START, offset=(20, 20)) and GG_START.match_template_color(self.device.image):
-                logger.info('GG detected start')
+            if self.match_template_color(GG_START, offset=(20, 20)):
                 self.device.click(GG_START)
                 count += 3
                 continue
@@ -317,7 +280,7 @@ class GGScreenshot(ModuleBase):
             if self.appear(GG_NOTRUN, offset=(20, 20)):
                 self.gg_restart()
                 continue
-            if (count > 2 and self.appear(LOGIN_CHECK, offset=(30, 30)) and LOGIN_CHECK.match_template_color(self.device.image)) \
+            if (count > 2 and self.match_template_color(LOGIN_CHECK, offset=(30, 30)) and LOGIN_CHECK.match_appear_on(self.device.image)) \
                 or self.appear(LOGIN_GAME_UPDATE, offset=(30, 30)):
                 self.handle_app_login()
                 continue
