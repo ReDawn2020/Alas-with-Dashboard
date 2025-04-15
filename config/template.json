@@ -73,17 +73,6 @@
       "FailureInterval": 0,
       "ServerUpdate": "00:00"
     },
-	"AutoRestart": {
-      "Enabled": false,
-      "AttemptsToRestart": 114514,
-      "NotifyWhenAutoRestart": false
-    },
-    "InstanceRestart": {
-      "Enabled": false,
-      "AttemptsToRestart": 114514,
-      "NotifyWhenAutoRestart": false,
-      "HasRestarted": 0
-    },
     "Storage": {
       "Storage": {}
     }
@@ -401,7 +390,7 @@
       "CommissionLimit": true
     },
     "Campaign": {
-      "Name": "15-1",
+      "Name": "12-4",
       "Event": "campaign_main",
       "Mode": "normal",
       "UseClearMode": true,
@@ -1495,7 +1484,7 @@
       "Command": "Guild",
       "SuccessInterval": 30,
       "FailureInterval": 30,
-      "ServerUpdate": "00:00, 03:00, 06:00, 09:00, 12:00, 15:00, 18:00, 21:00"
+      "ServerUpdate": "00:00, 06:00, 12:00, 18:00, 21:00"
     },
     "GuildLogistics": {
       "Enable": true,
@@ -1631,7 +1620,7 @@
       "UseGems": false,
       "Refresh": false,
       "BuySkinBox": false,
-      "ConsumeCoins": 550000,
+      "ConsumeCoins": false,
       "Filter": "BookRedT3 > BookYellowT3 > BookBlueT3 > BookRedT2\n> Cube\n> FoodT6 > FoodT5"
     },
     "Storage": {
@@ -2041,7 +2030,7 @@
       "Command": "OpsiHazard1Leveling",
       "SuccessInterval": 30,
       "FailureInterval": 60,
-      "ServerUpdate": "00:00, 03:00, 06:00, 09:00, 12:00, 15:00, 18:00, 21:00"
+      "ServerUpdate": "00:00, 12:00"
     },
     "OpsiHazard1Leveling": {
       "TargetZone": 0

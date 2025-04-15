@@ -534,16 +534,5 @@ class GeneratedConfig:
     GuildCoin_Color = '^AAAAAA'
     GuildCoin_Record = datetime.datetime(2023, 1, 1, 0, 0)
 
-    # Group `AutoRestart`
-    AutoRestart_Enabled = False
-    AutoRestart_AttemptsToRestart = 114514
-    AutoRestart_NotifyWhenAutoRestart = False
-
-    # Group `InstanceRestart`
-    InstanceRestart_Enabled = False
-    InstanceRestart_AttemptsToRestart = 114514
-    InstanceRestart_NotifyWhenAutoRestart = False
-    InstanceRestart_HasRestarted = 0
-
     # Group `Storage`
     Storage_Storage = {}

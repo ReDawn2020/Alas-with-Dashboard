@@ -410,39 +410,6 @@
         "display": "hide"
       }
     },
-    "AutoRestart": {
-      "Enabled": {
-        "type": "checkbox",
-        "value": false
-      },
-      "AttemptsToRestart": {
-        "type": "input",
-        "value": 114514
-      },
-      "NotifyWhenAutoRestart": {
-        "type": "checkbox",
-        "value": false
-      }
-    },
-    "InstanceRestart": {
-      "Enabled": {
-        "type": "checkbox",
-        "value": false
-      },
-      "AttemptsToRestart": {
-        "type": "input",
-        "value": 114514
-      },
-      "NotifyWhenAutoRestart": {
-        "type": "checkbox",
-        "value": false
-      },
-      "HasRestarted": {
-        "type": "input",
-        "value": 0,
-        "display": "hide"
-      }
-    },
     "Storage": {
       "Storage": {
         "type": "storage",
@@ -2047,7 +2014,7 @@
     "Campaign": {
       "Name": {
         "type": "input",
-        "value": "15-1"
+        "value": "12-4"
       },
       "Event": {
         "type": "select",
@@ -3378,23 +3345,16 @@
           "event_20231221_cn",
           "event_20240229_cn",
           "event_20240425_cn",
-          "event_20240725_cn",
-          "event_20240815_cn",
-          "event_20240829_cn",
-          "event_20240912_cn",
-          "event_20241024_cn",
-          "event_20241121_cn",
-          "event_20241219_cn",
-          "event_20250227_cn"
+          "event_20240521_cn"
         ],
         "option_bold": [
-          "event_20240725_cn",
-          "event_20250227_cn"
+          "event_20211229_cn",
+          "event_20220526_cn"
         ],
-        "cn": "event_20250227_cn",
-        "en": "event_20250227_cn",
-        "jp": "event_20250227_cn",
-        "tw": "event_20240725_cn"	  
+        "cn": "event_20220526_cn",
+        "en": "event_20220526_cn",
+        "jp": "event_20220526_cn",
+        "tw": "event_20211229_cn"
       },
       "Mode": {
         "type": "select",
@@ -8164,7 +8124,7 @@
       },
       "ServerUpdate": {
         "type": "input",
-        "value": "00:00, 03:00, 06:00, 09:00, 12:00, 15:00, 18:00, 21:00",
+        "value": "00:00, 06:00, 12:00, 18:00, 21:00",
         "display": "hide"
       }
     },
@@ -8733,8 +8693,8 @@
         "value": false
       },
       "ConsumeCoins": {
-        "type": "input",
-        "value": 550000
+        "type": "checkbox",
+        "value": false
       },
       "Filter": {
         "type": "textarea",
@@ -10302,7 +10262,7 @@
       },
       "ServerUpdate": {
         "type": "input",
-        "value": "00:00, 03:00, 06:00, 09:00, 12:00, 15:00, 18:00, 21:00",
+        "value": "00:00, 12:00",
         "display": "hide"
       }
     },
