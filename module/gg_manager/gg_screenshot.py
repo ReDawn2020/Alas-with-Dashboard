@@ -87,13 +87,13 @@ class GGScreenshot(ModuleBase):
             else:
                 self.device.sleep(0.5)
                 self.device.screenshot()
-            # if self.appear(GG_APP_CHOOSE1, offset=(20, 20)):
-            #     if self.appear_then_click(GG_APP_CHOOSE0, offset=(20, 20), interval=1):
-            #         pass
-            #     else:
-            #         self.device.click(GG_APP_CHOOSE1)
-            #     logger.info('APP Choose')
-            #     continue
+             if self.appear(GG_APP_CHOOSE1, offset=(20, 20)):
+                 if self.appear_then_click(GG_APP_CHOOSE0, offset=(20, 20), interval=1):
+                     pass
+                 else:
+                     self.device.click(GG_APP_CHOOSE1)
+                 logger.info('APP Choose')
+                 continue
             if not self.appear(GG_APP_ENTER, offset=(20, 20)) and \
                 self.appear(GG_SEARCH_MODE_CONFIRM, offset=(10, 10)) and \
                     GG_SEARCH_MODE_CONFIRM.match_template_color(self.device.image):
@@ -101,10 +101,10 @@ class GGScreenshot(ModuleBase):
                 self.device.click(GG_APP_RECHOOSE)
                 continue
             self.app_choose_then_click()
-            # if self.appear(GG_APP_ENTER, offset=(20, 20)):
-            #     logger.info('APP Enter appeared')
-            # else:
-            #     logger.info('APP Enter not appeared')
+             if self.appear(GG_APP_ENTER, offset=(20, 20)):
+                 logger.info('APP Enter appeared')
+             else:
+                 logger.info('APP Enter not appeared')
             if self.appear(GG_NOTRUN, offset=(20, 20)):
                 self.gg_restart()
                 self.device.sleep(0.5)
@@ -131,14 +131,14 @@ class GGScreenshot(ModuleBase):
             else:
                 self.device.sleep(0.5)
                 self.device.screenshot()
-            # if self.appear(GG_APP_CHOOSE1, offset=(20, 20)):
-            #     if self.appear_then_click(GG_APP_CHOOSE0, offset=(20, 20), interval=1):
-            #         pass
-            #     else:
-            #         self.device.click(GG_APP_CHOOSE1)
-            #     logger.info('APP Choose')
-            #     continue
-            # self.app_choose_then_click()
+             if self.appear(GG_APP_CHOOSE1, offset=(20, 20)):
+                 if self.appear_then_click(GG_APP_CHOOSE0, offset=(20, 20), interval=1):
+                     pass
+                 else:
+                     self.device.click(GG_APP_CHOOSE1)
+                 logger.info('APP Choose')
+                 continue
+             self.app_choose_then_click()
 
             if self.appear(GG_SEARCH_MODE_CONFIRM, offset=(10, 10)) and \
                 GG_SEARCH_MODE_CONFIRM.match_template_color(self.device.image):
