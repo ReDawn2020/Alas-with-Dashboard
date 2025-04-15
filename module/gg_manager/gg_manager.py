@@ -99,7 +99,7 @@ class GGManager(ModuleBase):
         Args:
             task: str = What task it is to limit power, default limit is 16500 for front ships.
         """
-        limit = self.config.cross_get(f'GameManager.PowerLimit.{task}', default=16500)
+        limit = self.config.cross_get(f'GameManager.PowerLimit.{task}', default=20000)
         lowlimit = self.config.cross_get(f'GGManager.GGManager.GGLowLimit', default=500)
         logger.attr('Power Limit', limit)
         self.device.sleep(2)
