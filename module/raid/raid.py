@@ -201,14 +201,14 @@ class Raid(MapOperation, RaidCombat, CampaignEvent):
         logger.info('Combat preparation.')
 
         # Power limit check
-        # from module.gg_manager.gg_manager import GGManager
-        # gg_enable = self.config.cross_get('GGManager.GGManager.Enable', default=True)
-        # gg_restart = self.config.cross_get('GGManager.GGManager.RestartEverytime', default=True)
-        # if gg_enable and gg_restart:
-        #     if GGManager(self.config, self.device).power_limit('Raid'):
-        #         self.config.task_delay(minute=0.5)
-        #         self.config.task_call('Restart')
-        #         self.config.task_stop()
+         from module.gg_manager.gg_manager import GGManager
+         gg_enable = self.config.cross_get('GGManager.GGManager.Enable', default=True)
+         gg_restart = self.config.cross_get('GGManager.GGManager.RestartEverytime', default=True)
+         if gg_enable and gg_restart:
+             if GGManager(self.config, self.device).power_limit('Raid'):
+                 self.config.task_delay(minute=0.5)
+                 self.config.task_call('Restart')
+                 self.config.task_stop()
 
         skip_first_screenshot = True
 
