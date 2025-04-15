@@ -59,7 +59,7 @@ class GGScreenshot(ModuleBase):
             in: any
             out: any GG
         """
-        skip_first_screenshot = True
+        skip_first_screenshot = False
         while 1:
             if skip_first_screenshot:
                 skip_first_screenshot = False
@@ -80,7 +80,7 @@ class GGScreenshot(ModuleBase):
     def enter_gg(self):
         self._enter_gg()
         logger.hr('Enter APP State')
-        skip_first_screenshot = True
+        skip_first_screenshot = False
         while 1:
             if skip_first_screenshot:
                 skip_first_screenshot = False
@@ -124,7 +124,7 @@ class GGScreenshot(ModuleBase):
             out: GG ready to start script
         """
         logger.hr('Select Script')
-        skip_first_screenshot = True
+        skip_first_screenshot = False
         while 1:
             if skip_first_screenshot:
                 skip_first_screenshot = False
@@ -152,7 +152,7 @@ class GGScreenshot(ModuleBase):
 
     def gg_enter_script(self):
         self._gg_enter_script()
-        skip_first_screenshot = True
+        skip_first_screenshot = False
         while 1:
             if skip_first_screenshot:
                 skip_first_screenshot = False
@@ -248,7 +248,7 @@ class GGScreenshot(ModuleBase):
             out: GG Menu
         """
         logger.hr('Execute')
-        skip_first_screenshot = True
+        skip_first_screenshot = False
         while 1:
             if skip_first_screenshot:
                 skip_first_screenshot = False
@@ -283,7 +283,7 @@ class GGScreenshot(ModuleBase):
             logger.info('Push success')
 
     def gg_open(self):
-        skip_first_screenshot = True
+        skip_first_screenshot = False
         count = 0
         while 1:
             if skip_first_screenshot:
