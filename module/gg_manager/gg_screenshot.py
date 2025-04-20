@@ -39,18 +39,33 @@ class GGScreenshot(ModuleBase):
             bool: True if app selected, False if not found
         """
         logger.info('App Choose')
-        # assuming only one app over GB is installed
-        ocr = Ocr(LIST_OCR_PROCESSES, name='OCR_GG_APP_SELECT', lang='cnocr', 
-                letter=(255, 255, 255), threshold=128, alphabet='GB')
+        # 假设只有一个 “GB” 应用安装在设备上
+        ocr = Ocr(
+            LIST_OCR_PROCESSES,
+            name='OCR_GG_APP_SELECT',
+            lang='cnocr',
+            letter=(255, 255, 255),
+            threshold=128,
+            alphabet='GB'
+            )
         result = ocr.ocr(self.device.image)
         if not isinstance(result, list):
             result = [result]
+
+        # 新增逻辑：如果列表中出现 "B"，直接点击列表中的第一个
+        for text in result:
+            if "B" in text:
+                self.device.click(LIST_OCR_PROCESSES[0])
+                logger.info('App 0 selected because "B" was found in OCR result')
+                return True
+
+        # 原有逻辑：查找包含 "GB" 的 OCR 结果，并点击对应的区域
         for i in range(len(result)):
             if result[i].find('GB') != -1:
                 self.device.click(LIST_OCR_PROCESSES[i])
                 logger.info(f'App {i} selected')
                 return True
-        
+
         return False
 
     def _enter_gg(self):
