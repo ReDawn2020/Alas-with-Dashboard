@@ -31,6 +31,24 @@ Farm:
   menu: 'collapse'
   page: 'setting'
   tasks:
+    MainNormal:
+      - Scheduler
+      - Campaign
+      - StopCondition
+      - Fleet
+      - Submarine
+      - Emotion
+      - HpControl
+      - EnemyPriority
+    MainHard:
+      - Scheduler
+      - Campaign
+      - StopCondition
+      - Fleet
+      - Submarine
+      - Emotion
+      - HpControl
+      - EnemyPriority
     Main:
       - Scheduler
       - Campaign
@@ -75,6 +93,15 @@ Event:
       - HpControl
       - EnemyPriority
     Event2:
+      - Scheduler
+      - Campaign
+      - StopCondition
+      - Fleet
+      - Submarine
+      - Emotion
+      - HpControl
+      - EnemyPriority
+    Event3:
       - Scheduler
       - Campaign
       - StopCondition
