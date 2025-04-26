@@ -48,22 +48,6 @@ GemsFarming:
 
 # ==================== Main ====================
 
-MainNormal:
-  Campaign:
-    Event: campaign_main
-    Mode:
-      type: state
-      value: normal
-      option_bold: normal
-MainHard:
-  Campaign:
-    Event: campaign_main
-    Mode:
-      type: state
-      value: hard
-      option_bold: hard
-  StopCondition:
-    RunCount: 3
 Main:
   Campaign:
     Event: campaign_main
@@ -80,12 +64,6 @@ Event:
       type: state
     AmbushEvade: true
 Event2:
-  Campaign:
-    Mode: normal
-    Event:
-      type: state
-    AmbushEvade: true
-Event3:
   Campaign:
     Mode: normal
     Event:

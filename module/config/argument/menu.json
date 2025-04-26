@@ -12,8 +12,6 @@
     "menu": "collapse",
     "page": "setting",
     "tasks": [
-      "MainNormal",
-      "MainHard",
       "Main",
       "Main2",
       "GemsFarming"
@@ -26,7 +24,6 @@
       "EventGeneral",
       "Event",
       "Event2",
-      "Event3",
       "Raid",
       "Hospital",
       "Coalition",
