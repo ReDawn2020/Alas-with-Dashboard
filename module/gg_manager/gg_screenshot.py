@@ -47,17 +47,16 @@ class GGScreenshot(ModuleBase):
             letter=(255, 255, 255),
             threshold=128,
             alphabet='GB'
-            )
+        )
         result = ocr.ocr(self.device.image)
         if not isinstance(result, list):
             result = [result]
 
-        # 新增逻辑：如果列表中出现 "B"，直接点击列表中的第一个
-        for text in result:
-            if "B" in text:
-                self.device.click(LIST_OCR_PROCESSES[0])
-                logger.info('App 0 selected because "B" was found in OCR result')
-                return True
+        # 新增逻辑：如果列表为空或者列表中出现 "B"，直接点击列表中的第一个
+        if not result or any("B" in text for text in result):
+            self.device.click(LIST_OCR_PROCESSES[0])
+            logger.info('App 0 selected because "B" was found in OCR result or OCR result list is empty')
+            return True
 
         # 原有逻辑：查找包含 "GB" 的 OCR 结果，并点击对应的区域
         for i in range(len(result)):
