@@ -748,7 +748,7 @@
       "event_20221124_cn": "炼金术士与秘密遗迹群岛",
       "event_20221222_cn": "复刻定向折叠",
       "event_20230223_cn": "复刻湮烬尘墟",
-      "event_20230525_cn": "空相交汇点",
+      "event_20230525_cn": "复刻空相交汇点",
       "event_20230803_cn": "奏响鸢尾之歌",
       "event_20230817_cn": "愚者的天平",
       "event_20230914_cn": "须臾望月抄",
@@ -2698,46 +2698,6 @@
     "Coalition": {
       "name": "极地风暴",
       "help": ""
-    }
-  },
-  "AutoRestart": {
-    "_info": {
-      "name": "自动重启",
-      "help": "遇到某些问题时自动重启"
-    },
-    "Enabled": {
-      "name": "启用",
-      "help": ""
-    },
-    "AttemptsToRestart": {
-      "name": "最大尝试自动重启次数",
-      "help": ""
-    },
-    "NotifyWhenAutoRestart": {
-      "name": "重启时通知",
-      "help": "因出错而自动重启时通知，不建议开启，因为可能会很烦"
-    }
-  },
-  "InstanceRestart": {
-    "_info": {
-      "name": "重启Alas实例",
-      "help": ""
-    },
-    "Enabled": {
-      "name": "启用",
-      "help": ""
-    },
-    "AttemptsToRestart": {
-      "name": "最大尝试自动重启次数",
-      "help": ""
-    },
-    "NotifyWhenAutoRestart": {
-      "name": "重启时通知",
-      "help": "因出错而自动重启时通知，不建议开启，因为可能会很烦"
-    },
-    "HasRestarted": {
-      "name": "InstanceRestart.HasRestarted.name",
-      "help": "InstanceRestart.HasRestarted.help"
     }
   },
   "Storage": {
