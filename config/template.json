@@ -2142,10 +2142,10 @@
       "DisabledTask": "disable_all_dangerous_task"
     },
     "PowerLimit": {
-      "Exercise": 16500,
-      "Raid": 16500,
-      "Ash": 16500,
-      "Coalition": 16500
+      "Exercise": 20000,
+      "Raid": 20000,
+      "Ash": 20000,
+      "Coalition": 20000
     },
     "Storage": {
       "Storage": {}
