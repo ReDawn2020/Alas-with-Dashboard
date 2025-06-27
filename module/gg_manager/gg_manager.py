@@ -160,11 +160,11 @@ class GGManager(ModuleBase):
         # Handle ignorance
 
         if _disabled_task == 'disable_guild_and_dangerous':
-            _disabled = _group_exercise + _group_meta + _group_raid + _group_coalition + _group_personal_choice
-            _enabled = _group_enabled
+            _disabled = _group_exercise + _group_meta + _group_raid + _group_personal_choice
+            _enabled = _group_enabled + _group_coalition
         elif _disabled_task == 'disable_all_dangerous_task':
-            _disabled = _group_exercise + _group_meta + _group_raid + _group_coalition
-            _enabled = _group_enabled + _group_personal_choice
+            _disabled = _group_exercise + _group_meta + _group_raid
+            _enabled = _group_enabled + _group_personal_choice + _group_coalition
         elif _disabled_task == 'disable_meta_and_exercise':
             _disabled = _group_exercise + _group_meta
             _enabled = _group_enabled + _group_raid + _group_coalition + _group_personal_choice
