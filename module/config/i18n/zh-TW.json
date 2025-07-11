@@ -274,6 +274,10 @@
       "name": "活動劇情",
       "help": ""
     },
+    "BoxDisassemble": {
+      "name": "拆裝備箱",
+      "help": ""
+    },
     "Benchmark": {
       "name": "性能測試",
       "help": ""
@@ -2579,6 +2583,36 @@
       "help": "",
       "True": "已启用",
       "False": "False"
+    }
+  },
+  "BoxDisassemble": {
+    "_info": {
+      "name": "折開裝備箱",
+      "help": "折開倉庫中的裝備箱子，配寘完成後啟動並等待即可"
+    },
+    "UsePurpleBox": {
+      "name": "折開紫色裝備箱",
+      "help": ""
+    },
+    "PurpleBoxLimit": {
+      "name": "保留每種紫色裝備箱 X 個",
+      "help": ""
+    },
+    "UseBlueBox": {
+      "name": "折開藍色裝備箱",
+      "help": ""
+    },
+    "BlueBoxLimit": {
+      "name": "保留每種藍色裝備箱 X 個",
+      "help": ""
+    },
+    "UseWhiteBox": {
+      "name": "折開白色裝備箱",
+      "help": ""
+    },
+    "WhiteBoxLimit": {
+      "name": "保留每種白色裝備箱 X 個",
+      "help": ""
     }
   },
   "Benchmark": {

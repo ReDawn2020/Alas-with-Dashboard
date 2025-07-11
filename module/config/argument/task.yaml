@@ -360,6 +360,8 @@ Tool:
       - OpsiDaemon
     EventStory:
       - EventStory
+    BoxDisassemble:
+      - BoxDisassemble
     Benchmark:
       - Benchmark
     AzurLaneUncensored:

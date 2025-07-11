@@ -105,6 +105,7 @@
       "Daemon",
       "OpsiDaemon",
       "EventStory",
+      "BoxDisassemble",
       "Benchmark",
       "AzurLaneUncensored",
       "GameManager",
