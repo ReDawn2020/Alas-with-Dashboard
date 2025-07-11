@@ -284,6 +284,9 @@ DailyMission:
       - SupplyPack
     Minigame:
       - Scheduler
+    PrivateQuarters:
+      - Scheduler
+      - PrivateQuarters
     DashboardUpdate:
       - Scheduler
       - DashboardUpdate
