@@ -59,6 +59,7 @@
 #pywebio-scope-dashboard input {
     background-color: white !important;
 }
+
 input[type="checkbox"] {
     accent-color: #7a77bb;
 }
