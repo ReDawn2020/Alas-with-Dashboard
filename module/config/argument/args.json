@@ -2057,7 +2057,6 @@
         "value": "campaign_main",
         "option": [
           "event_20221124_cn",
-          "event_20241219_cn",
           "event_20250724_cn"
         ],
         "display": "hide",
@@ -2074,7 +2073,8 @@
           "event_20250724_cn"
         ],
         "option_tw": [
-          "event_20241219_cn"
+          "event_20221124_cn",
+          "event_20250724_cn"
         ]
       },
       "Mode": {
@@ -2339,7 +2339,6 @@
         "value": "campaign_main",
         "option": [
           "event_20221124_cn",
-          "event_20241219_cn",
           "event_20250724_cn"
         ],
         "option_cn": [
@@ -2355,7 +2354,8 @@
           "event_20250724_cn"
         ],
         "option_tw": [
-          "event_20241219_cn"
+          "event_20221124_cn",
+          "event_20250724_cn"
         ]
       },
       "Mode": {
@@ -2734,7 +2734,6 @@
         "value": "campaign_main",
         "option": [
           "event_20221124_cn",
-          "event_20241219_cn",
           "event_20250724_cn"
         ],
         "option_cn": [
@@ -2750,7 +2749,8 @@
           "event_20250724_cn"
         ],
         "option_tw": [
-          "event_20241219_cn"
+          "event_20221124_cn",
+          "event_20250724_cn"
         ]
       },
       "Mode": {
@@ -3607,9 +3607,6 @@
         "option": [
           "raid_20250116"
         ],
-        "option_tw": [
-          "raid_20250116"
-        ],
         "option_cn": [
           "raid_20250116"
         ],
@@ -3617,6 +3614,9 @@
           "raid_20250116"
         ],
         "option_jp": [
+          "raid_20250116"
+        ],
+        "option_tw": [
           "raid_20250116"
         ]
       },
@@ -4892,7 +4892,6 @@
         "value": "campaign_main",
         "option": [
           "event_20221124_cn",
-          "event_20241219_cn",
           "event_20250724_cn"
         ],
         "option_cn": [
@@ -4908,7 +4907,8 @@
           "event_20250724_cn"
         ],
         "option_tw": [
-          "event_20241219_cn"
+          "event_20221124_cn",
+          "event_20250724_cn"
         ]
       },
       "Mode": {
@@ -5304,7 +5304,6 @@
         "value": "campaign_main",
         "option": [
           "event_20221124_cn",
-          "event_20241219_cn",
           "event_20250724_cn"
         ],
         "option_cn": [
@@ -5320,7 +5319,8 @@
           "event_20250724_cn"
         ],
         "option_tw": [
-          "event_20241219_cn"
+          "event_20221124_cn",
+          "event_20250724_cn"
         ]
       },
       "Mode": {
@@ -5716,7 +5716,6 @@
         "value": "campaign_main",
         "option": [
           "event_20221124_cn",
-          "event_20241219_cn",
           "event_20250724_cn"
         ],
         "option_cn": [
@@ -5732,7 +5731,8 @@
           "event_20250724_cn"
         ],
         "option_tw": [
-          "event_20241219_cn"
+          "event_20221124_cn",
+          "event_20250724_cn"
         ]
       },
       "Mode": {
@@ -6128,7 +6128,6 @@
         "value": "campaign_main",
         "option": [
           "event_20221124_cn",
-          "event_20241219_cn",
           "event_20250724_cn"
         ],
         "option_cn": [
@@ -6144,7 +6143,8 @@
           "event_20250724_cn"
         ],
         "option_tw": [
-          "event_20241219_cn"
+          "event_20221124_cn",
+          "event_20250724_cn"
         ]
       },
       "Mode": {
@@ -6530,7 +6530,6 @@
         "value": "campaign_main",
         "option": [
           "event_20221124_cn",
-          "event_20241219_cn",
           "event_20250724_cn"
         ],
         "option_cn": [
@@ -6546,7 +6545,8 @@
           "event_20250724_cn"
         ],
         "option_tw": [
-          "event_20241219_cn"
+          "event_20221124_cn",
+          "event_20250724_cn"
         ]
       },
       "Mode": {
@@ -6940,9 +6940,6 @@
         "option": [
           "raid_20250116"
         ],
-        "option_tw": [
-          "raid_20250116"
-        ],
         "option_cn": [
           "raid_20250116"
         ],
@@ -6950,6 +6947,9 @@
           "raid_20250116"
         ],
         "option_jp": [
+          "raid_20250116"
+        ],
+        "option_tw": [
           "raid_20250116"
         ]
       },
