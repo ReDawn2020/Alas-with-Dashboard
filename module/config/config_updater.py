@@ -30,8 +30,8 @@ ARCHIVES_PREFIX = {
     'jp': '檔案 ',
     'tw': '檔案 '
 }
-MAINS = ['Main', 'Main2', 'Main3']
-EVENTS = ['Event', 'Event2', 'Event3', 'Event4', 'Event5', 'Event6', 'EventA', 'EventB', 'EventC', 'EventD', 'EventSp']
+MAINS = ['MainNormal', 'MainHard', 'Main', 'Main2']
+EVENTS = ['Event', 'Event2', 'Event3', 'EventA', 'EventB', 'EventC', 'EventD', 'EventSp']
 EVENT_DAILY = ['EventA', 'EventB', 'EventC', 'EventD', 'EventSp']
 GEMS_FARMINGS = ['GemsFarming']
 RAIDS = ['Raid', 'RaidDaily']
