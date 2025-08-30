@@ -694,7 +694,7 @@
     },
     "Name": {
       "name": "Campaign.Name.name",
-      "help": "Campaign.Name.help"
+      "help": ""
     },
     "Event": {
       "name": "Campaign.Event.name",
