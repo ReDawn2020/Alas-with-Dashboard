@@ -19,7 +19,7 @@ OCR_BUILD_SUBMIT_COUNT = Digit(BUILD_SUBMIT_COUNT, letter=(255, 247, 247), thres
 OCR_BUILD_SUBMIT_WW_COUNT = Digit(BUILD_SUBMIT_WW_COUNT, letter=(255, 247, 247), threshold=64)
 
 
-class RewardGacha(GachaUI, Retirement):
+class RewardGacha(GachaUI, GeneralShop, Retirement):
     build_coin_count = 0
     build_cube_count = 0
     build_ticket_count = 0
