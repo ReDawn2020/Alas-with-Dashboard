@@ -1,7 +1,7 @@
 import json
 import random
 import string
-import time
+import calendar
 from datetime import datetime, timedelta, timezone
 
 import yaml
@@ -24,7 +24,7 @@ SERVER_TO_TIMEZONE = {
     'jp': timedelta(hours=9),
     'tw': timedelta(hours=8),
 }
-DEFAULT_TIME = datetime(2023, 1, 1, 0, 0)
+DEFAULT_TIME = datetime(2020, 1, 1, 0, 0)
 
 
 # https://stackoverflow.com/questions/8640959/how-can-i-control-what-scalar-form-pyyaml-uses-for-my-data/15423007
@@ -281,10 +281,7 @@ def dict_to_kv(dictionary, allow_none=True):
     Returns:
         str: Such as `path='Scheduler.ServerUpdate', value=True`
     """
-    for k, v in dictionary.items():
-        if 'eso' in k or 'hiv' in k:
-            return ',\n'.join([f'{k}={repr(v)}' for k, v in dictionary.items() if allow_none or v is not None])
-        return ', '.join([f'{k}={repr(v)}' for k, v in dictionary.items() if allow_none or v is not None])
+    return ', '.join([f'{k}={repr(v)}' for k, v in dictionary.items() if allow_none or v is not None])
 
 
 def server_timezone() -> timedelta:
@@ -352,6 +349,16 @@ def ensure_time(second, n=3, precision=3):
             return int(second)
     else:
         return second
+
+
+def get_first_day_of_next_month() -> datetime:
+    now = datetime.now()
+    return now.replace(day=1, hour=0, minute=0, second=0, microsecond=0) + timedelta(days=(calendar.monthrange(now.year, now.month)[1]))
+
+
+def get_first_day_of_next_week() -> datetime:
+    return datetime.now().replace(hour=0, minute=0, second=0, microsecond=0) + timedelta(
+        days=7 - datetime.weekday(datetime.now()))
 
 
 def get_os_next_reset():
@@ -546,44 +553,46 @@ def type_to_str(typ):
     return str(typ)
 
 
-def readable_time(before: str, value: str) -> str:
+def time_delta(_timedelta):
     """
     Output the delta between two times
-    """
-    timedata = {
-        'value': value,
-        'time': '',
-        'time_name': 'NoData'
-    }
-    if not before:
-        timedata['value'] = 'None'
-        return timedata
-    try:
-        ti = datetime.fromisoformat(before)
-    except ValueError:
-        timedata['time_name'] = 'TimeError'
-        return timedata
-    if ti == DEFAULT_TIME:
-        timedata['value'] = 'None'
-        return timedata
 
-    diff = time.time() - ti.timestamp()
-    if diff < -1:
-        timedata['time_name'] = 'TimeError'
-    elif diff < 60:
-        timedata['time_name'] = 'JustNow'
-    elif diff < 5400:
-        timedata['time'] = int(diff // 60)
-        timedata['time_name'] = 'MinutesAgo'
-    elif diff < 129600:
-        timedata['time'] = int(diff // 3600)
-        timedata['time_name'] = 'HoursAgo'
-    elif diff < 1296000:
-        timedata['time'] = int(diff // 86400)
-        timedata['time_name'] = 'DaysAgo'
-    else:
-        timedata['time_name'] = 'LongTimeAgo'
-    return timedata
+    Args:
+        _timedelta : datetime.timedelta
+
+    Returns:
+        dict :  {
+                 'Y' : int,
+                 'M' : int,
+                 'D' : int,
+                 'h' : int,
+                 'm' : int,
+                 's' : int
+        }
+    """
+    _time_delta = abs(_timedelta.total_seconds())
+    d_base = datetime(2010, 1, 1, 0, 0, 0)
+    d = datetime(2010, 1, 1, 0, 0, 0) - _timedelta
+    _time_dict = {
+        'Y': d.year - d_base.year,
+        'M': d.month - d_base.month,
+        'D': d.day - d_base.day,
+        'h': d.hour - d_base.hour,
+        'm': d.minute - d_base.minute,
+        's': d.second - d_base.second
+    }
+    # _sec ={
+    #     'Y': 365*24*60*60,
+    #     'M': 30*24*60*60,
+    #     'D': 24*60*60,
+    #     'h': 60*60,
+    #     'm': 60,
+    #     's': 1
+    # }
+    # for _key in _time_dict:
+    #     _time_dict[_key] = int(_time_delta//_sec[_key])
+    #     _time_delta = _time_delta%_sec[_key]
+    return _time_dict
 
 
 if __name__ == '__main__':

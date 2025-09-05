@@ -46,20 +46,16 @@
       "name": "Restart",
       "help": ""
     },
-    "MainNormal": {
-      "name": "MainNormal",
-      "help": ""
-    },
-    "MainHard": {
-      "name": "MainHard",
-      "help": ""
-    },
     "Main": {
       "name": "Main",
       "help": ""
     },
     "Main2": {
       "name": "Main-2",
+      "help": ""
+    },
+    "Main3": {
+      "name": "Main-3",
       "help": ""
     },
     "GemsFarming": {
@@ -77,10 +73,6 @@
     "Event2": {
       "name": "Event-2",
       "help": ""
-    },
-    "Event3": {
-      "name": "Event-3",
-      "help": "Task.Event3.help"
     },
     "Raid": {
       "name": "Raid",
@@ -202,10 +194,6 @@
       "name": "Private Quarters",
       "help": ""
     },
-    "DashboardUpdate": {
-      "name": "Dashboard Update",
-      "help": ""
-    },
     "OpsiGeneral": {
       "name": "OpSi General",
       "help": "Ensure the following settings in Azur Lane:\nReduce TB Guidance: On\nAuto use items during Auto Search: On\nAuto Mode in secured zones: Off\nStory Autoplay: Enabled\nText Auto-Scroll Speed: Very Fast"
@@ -278,10 +266,6 @@
       "name": "Event Story",
       "help": ""
     },
-    "BoxDisassemble": {
-      "name": "Box Disassemble",
-      "help": ""
-    },
     "Benchmark": {
       "name": "Performance Test",
       "help": ""
@@ -293,10 +277,6 @@
     "GameManager": {
       "name": "Game Manager(WIP)",
       "help": ""
-    },
-    "GGManager": {
-      "name": "Task.GGManager.name",
-      "help": "Task.GGManager.help"
     }
   },
   "Scheduler": {
@@ -753,7 +733,7 @@
       "event_20220428_cn": "Rondo at Rainbows End Rerun",
       "event_20220526_cn": "Pledge of the Radiant Court Rerun",
       "event_20220728_cn": "Aquilifers Ballade Rerun",
-      "event_20220818_cn": "Operation Convergence Rerun",
+      "event_20220818_cn": "Operation Convergence Return",
       "event_20220915_cn": "Violet Tempest Blooming Lycoris Rerun",
       "event_20221124_cn": "The Alchemist and the Archipelago of Secrets Rerun",
       "event_20221222_cn": "Parallel Superimposition Rerun",
@@ -876,9 +856,9 @@
       "help": "Stop current task if level has been 100% Clear, 3 Stars, Threat Safe, or Threat Safe without 3 Stars. Non-stop implies no achievement requirement and loops until different stop condition is met",
       "non_stop": "Non-stop",
       "100_percent_clear": "100% Clear",
-      "threat_safe_without_3_stars": "100% Clear + Threat Safe",
       "map_3_stars": "100% Clear + 3 Stars",
-      "threat_safe": "100% Clear + 3 Stars + Threat Safe"
+      "threat_safe": "100% Clear + 3 Stars + Threat Safe",
+      "threat_safe_without_3_stars": "100% Clear + Threat Safe"
     },
     "StageIncrease": {
       "name": "Enable Continuous Clear",
@@ -916,7 +896,7 @@
       "diamond": "diamond"
     },
     "Fleet1Mode": {
-      "name": "Fleet1 Action Mode",
+      "name": "Fleet 1 Mode",
       "help": "",
       "combat_auto": "combat_auto",
       "combat_manual": "combat_manual",
@@ -950,7 +930,7 @@
       "diamond": "diamond"
     },
     "Fleet2Mode": {
-      "name": "Fleet2 Action Mode",
+      "name": "Fleet 2 Mode",
       "help": "",
       "combat_auto": "combat_auto",
       "combat_manual": "combat_manual",
@@ -1226,6 +1206,14 @@
       "cassin_or_downes": "Cassin or Downes",
       "z20_or_z21": "Z20 or Z21"
     },
+    "ALLowLowVanguardLevel": {
+      "name": "ALLow Low Vanguard Level",
+      "help": "Destroyers over level 10 will now be used, 49 for Event CD"
+    },
+    "StopIFAutoNotEnsured": {
+      "name": "GemsFarming.StopIFAutoNotEnsured.name",
+      "help": "GemsFarming.StopIFAutoNotEnsured.help"
+    },
     "CommissionLimit": {
       "name": "Prevent Too Many Urgent Commissions",
       "help": "When running 7x24, prevent having a lot of urgent commissions and not being able to complete daily commissions. It is recommended to select only short-terms and high-yields in the commission filter"
@@ -1242,7 +1230,7 @@
     },
     "TimeLimit": {
       "name": "Event Time Limit",
-      "help": "When the local time exceeds the given value, disable all event tasks. '2023-01-01 00:00:00' means no limit and the time will be reset once it's triggered\nThis can prevent the occurrence of forgetting to disable event tasks after the event ends"
+      "help": "When the local time exceeds the given value, disable all event tasks. '2020-01-01 00:00:00' means no limit and the time will be reset once it's triggered\nThis can prevent the occurrence of forgetting to disable event tasks after the event ends"
     }
   },
   "TaskBalancer": {
@@ -1261,10 +1249,9 @@
     "TaskCall": {
       "name": "Call task X if out of coin",
       "help": "Reminder: Players need to check task config before running, or TaskCall may not work.",
-      "MainNormal": "MainNormal",
-      "MainHard": "MainHard",
       "Main": "Main",
-      "Main2": "Main-2"
+      "Main2": "Main-2",
+      "Main3": "Main-3"
     }
   },
   "EventDaily": {
@@ -1317,6 +1304,10 @@
     "UseRecommendFleet": {
       "name": "Use Fleet Recommendation",
       "help": "If turned off, you need to manually prepare fleets of all 15 stages in advance"
+    },
+    "mapName": {
+      "name": "Hospital.mapName.name",
+      "help": "Hospital.mapName.help"
     }
   },
   "MaritimeEscort": {
@@ -2102,16 +2093,6 @@
       "new_jersey": "New Jersey"
     }
   },
-  "DashboardUpdate": {
-    "_info": {
-      "name": "DashboardUpdate._info.name",
-      "help": "DashboardUpdate._info.help"
-    },
-    "Update": {
-      "name": "DashboardUpdate.Update.name",
-      "help": "DashboardUpdate.Update.help"
-    }
-  },
   "Daily": {
     "_info": {
       "name": "Daily Settings",
@@ -2246,8 +2227,8 @@
       "help": "11-4, 12-2, 12-4, and etc."
     },
     "HardFleet": {
-      "name": "Hard.HardFleet.name",
-      "help": "Hard.HardFleet.help",
+      "name": "Hard Fleet",
+      "help": "Must in game manually set up the fleet and ensure level attribute restrictions are satisfied",
       "1": "1",
       "2": "2"
     }
@@ -2256,6 +2237,16 @@
     "_info": {
       "name": "Exercise Settings",
       "help": "Runs exercise and automatically retreats when sum HP volume is low"
+    },
+    "DelayUntilHoursBeforeNextUpdate": {
+      "name": "Exercise.DelayUntilHoursBeforeNextUpdate.name",
+      "help": "Exercise.DelayUntilHoursBeforeNextUpdate.help",
+      "1": "1",
+      "2": "2",
+      "3": "3",
+      "4": "4",
+      "5": "5",
+      "12": "12"
     },
     "OpponentChooseMode": {
       "name": "Opponent Choose Mode",
@@ -2414,7 +2405,7 @@
       "4": "4"
     },
     "FleetMode": {
-      "name": "Action Mode",
+      "name": "Fleet Mode",
       "help": "",
       "combat_auto": "combat_auto",
       "combat_manual": "combat_manual",
@@ -2573,24 +2564,6 @@
       "22": "22 | NA Ocean SW Sector B"
     }
   },
-  "OpsiCheckLeveling": {
-    "_info": {
-      "name": "Daily Leveling Check",
-      "help": "Check if all ships in current fleet have received enough experience to reach the target level\nIf yes, then Alas will push a message.\n'Error notify config' should be set first."
-    },
-    "TargetLevel": {
-      "name": "Push when all ships received enough experience to reach target level X",
-      "help": "0 means no limit"
-    },
-    "LastRun": {
-      "name": "Last Check Time",
-      "help": "Automatically updated with the last check time, generally does not need to be modified"
-    },
-    "DelayAfterFull": {
-      "name": "Delay task when target level reached",
-      "help": ""
-    }
-  },
   "Daemon": {
     "_info": {
       "name": "Semi-auto Clicking",
@@ -2627,36 +2600,6 @@
       "False": "False"
     }
   },
-  "BoxDisassemble": {
-    "_info": {
-      "name": "Box Disassemble",
-      "help": "Disassemble equipment boxes in storage, configure before starting up, then wait"
-    },
-    "UsePurpleBox": {
-      "name": "Disassemble Purple Box",
-      "help": ""
-    },
-    "PurpleBoxLimit": {
-      "name": "Keep each kind of Purple Box number above X",
-      "help": ""
-    },
-    "UseBlueBox": {
-      "name": "Disassemble Blue Box",
-      "help": ""
-    },
-    "BlueBoxLimit": {
-      "name": "Keep each kind of Blue Box number above X",
-      "help": ""
-    },
-    "UseWhiteBox": {
-      "name": "Disassemble White Box",
-      "help": ""
-    },
-    "WhiteBoxLimit": {
-      "name": "Keep each kind of White Box number above X",
-      "help": ""
-    }
-  },
   "Benchmark": {
     "_info": {
       "name": "Performance Test",
@@ -2686,14 +2629,7 @@
     },
     "Repository": {
       "name": "AzurLaneUncensored Repository",
-      "help": "Do not need to modify\nGithub: <https://github.com/LmeSzinc/AzurLaneUncensored>"
-    },
-    "Option": {
-      "name": "AzurLaneUncensored.Option.name",
-      "help": "AzurLaneUncensored.Option.help",
-      "all": "all",
-      "main": "main",
-      "only_patch": "only_patch"
+      "help": "Do not need to modify\nGithub: <https://github.com/LmeSzinc/AzurLaneUncensored>\nCN mirror: <https://e.coding.net/llop18870/alas/AzurLaneUncensored.git>"
     }
   },
   "GameManager": {
@@ -2706,53 +2642,55 @@
       "help": "Log back into the game when the game has been ended."
     }
   },
-  "GGManager": {
+  "GGHandler": {
     "_info": {
-      "name": "GGManager._info.name",
-      "help": "GGManager._info.help"
+      "name": "GG Handler",
+      "help": ""
     },
-    "Enable": {
-      "name": "GGManager.Enable.name",
-      "help": "GGManager.Enable.help"
+    "Enabled": {
+      "name": "Enabled",
+      "help": ""
     },
-    "RestartEverytime": {
-      "name": "GGManager.RestartEverytime.name",
-      "help": "GGManager.RestartEverytime.help"
+    "GGMethod": {
+      "name": "Control Method",
+      "help": "Screenshot is slow and has some bugs, only for environments that not support UiAutomator",
+      "u2": "UiAutomator"
     },
-    "GGMultiplyingFactor": {
-      "name": "GGManager.GGMultiplyingFactor.name",
-      "help": "GGManager.GGMultiplyingFactor.help"
-    },
-    "GGAction": {
-      "name": "GGManager.GGAction.name",
-      "help": "GGManager.GGAction.help",
-      "auto": "auto",
-      "manual": "manual"
-    },
-    "GGLuapath": {
-      "name": "GGManager.GGLuapath.name",
-      "help": "GGManager.GGLuapath.help"
-    },
-    "GGLuapathRecord": {
-      "name": "GGManager.GGLuapathRecord.name",
-      "help": "GGManager.GGLuapathRecord.help"
+    "RestartATX": {
+      "name": "GGHandler.RestartATX.name",
+      "help": "GGHandler.RestartATX.help"
     },
     "GGPackageName": {
-      "name": "GGManager.GGPackageName.name",
-      "help": "GGManager.GGPackageName.help"
+      "name": "GG Package Name",
+      "help": "In /Android/data/com.xxxxxxx. (xxxxxxx means a lot of random characters)"
     },
-    "GGLowLimit": {
-      "name": "GGManager.GGLowLimit.name",
-      "help": "GGManager.GGLowLimit.help"
+    "AutoRestartGG": {
+      "name": "Auto Restart GG",
+      "help": "Start GG before tasks"
+    },
+    "RestartEverytime": {
+      "name": "Restart Everytime Alas starts",
+      "help": "For sake of safety"
+    },
+    "RepushLua": {
+      "name": "GGHandler.RepushLua.name",
+      "help": "GGHandler.RepushLua.help"
+    },
+    "GGMultiplyingFactor": {
+      "name": "GG Multiplying Factor",
+      "help": "1 - 9999 Recommended"
+    },
+    "Timeout": {
+      "name": "GGHandler.Timeout.name",
+      "help": "GGHandler.Timeout.help"
     },
     "DisabledTask": {
-      "name": "GGManager.DisabledTask.name",
-      "help": "GGManager.DisabledTask.help",
+      "name": "Disabled Tasks",
+      "help": "",
+      "disable_all_dangerous_task": "Disable_all_dangerous_task",
       "disable_guild_and_dangerous": "disable_guild_and_dangerous",
-      "disable_all_dangerous_task": "disable_all_dangerous_task",
-      "disable_meta_and_exercise": "disable_meta_and_exercise",
-      "disable_exercise": "disable_exercise",
-      "enable_all": "enable_all"
+      "disable_exercise": "Disable_exercise",
+      "enable_all": "Enable_all"
     }
   },
   "PowerLimit": {
@@ -2771,10 +2709,234 @@
     "Ash": {
       "name": "Ash",
       "help": ""
+    }
+  },
+  "Oil": {
+    "_info": {
+      "name": "Oil._info.name",
+      "help": "Oil._info.help"
     },
-    "Coalition": {
-      "name": "Coalition",
-      "help": ""
+    "Value": {
+      "name": "Oil.Value.name",
+      "help": "Oil.Value.help"
+    },
+    "Limit": {
+      "name": "Oil.Limit.name",
+      "help": "Oil.Limit.help"
+    },
+    "Color": {
+      "name": "Oil.Color.name",
+      "help": "Oil.Color.help"
+    },
+    "Record": {
+      "name": "Oil.Record.name",
+      "help": "Oil.Record.help"
+    }
+  },
+  "Coin": {
+    "_info": {
+      "name": "Coin._info.name",
+      "help": "Coin._info.help"
+    },
+    "Value": {
+      "name": "Coin.Value.name",
+      "help": "Coin.Value.help"
+    },
+    "Limit": {
+      "name": "Coin.Limit.name",
+      "help": "Coin.Limit.help"
+    },
+    "Color": {
+      "name": "Coin.Color.name",
+      "help": "Coin.Color.help"
+    },
+    "Record": {
+      "name": "Coin.Record.name",
+      "help": "Coin.Record.help"
+    }
+  },
+  "Gem": {
+    "_info": {
+      "name": "Gem._info.name",
+      "help": "Gem._info.help"
+    },
+    "Value": {
+      "name": "Gem.Value.name",
+      "help": "Gem.Value.help"
+    },
+    "Color": {
+      "name": "Gem.Color.name",
+      "help": "Gem.Color.help"
+    },
+    "Record": {
+      "name": "Gem.Record.name",
+      "help": "Gem.Record.help"
+    }
+  },
+  "Pt": {
+    "_info": {
+      "name": "Pt._info.name",
+      "help": "Pt._info.help"
+    },
+    "Value": {
+      "name": "Pt.Value.name",
+      "help": "Pt.Value.help"
+    },
+    "Color": {
+      "name": "Pt.Color.name",
+      "help": "Pt.Color.help"
+    },
+    "Record": {
+      "name": "Pt.Record.name",
+      "help": "Pt.Record.help"
+    }
+  },
+  "YellowCoin": {
+    "_info": {
+      "name": "YellowCoin._info.name",
+      "help": "YellowCoin._info.help"
+    },
+    "Value": {
+      "name": "YellowCoin.Value.name",
+      "help": "YellowCoin.Value.help"
+    },
+    "Color": {
+      "name": "YellowCoin.Color.name",
+      "help": "YellowCoin.Color.help"
+    },
+    "Record": {
+      "name": "YellowCoin.Record.name",
+      "help": "YellowCoin.Record.help"
+    }
+  },
+  "PurpleCoin": {
+    "_info": {
+      "name": "PurpleCoin._info.name",
+      "help": "PurpleCoin._info.help"
+    },
+    "Value": {
+      "name": "PurpleCoin.Value.name",
+      "help": "PurpleCoin.Value.help"
+    },
+    "Color": {
+      "name": "PurpleCoin.Color.name",
+      "help": "PurpleCoin.Color.help"
+    },
+    "Record": {
+      "name": "PurpleCoin.Record.name",
+      "help": "PurpleCoin.Record.help"
+    }
+  },
+  "ActionPoint": {
+    "_info": {
+      "name": "ActionPoint._info.name",
+      "help": "ActionPoint._info.help"
+    },
+    "Value": {
+      "name": "ActionPoint.Value.name",
+      "help": "ActionPoint.Value.help"
+    },
+    "Total": {
+      "name": "ActionPoint.Total.name",
+      "help": "ActionPoint.Total.help"
+    },
+    "Color": {
+      "name": "ActionPoint.Color.name",
+      "help": "ActionPoint.Color.help"
+    },
+    "Record": {
+      "name": "ActionPoint.Record.name",
+      "help": "ActionPoint.Record.help"
+    }
+  },
+  "Merit": {
+    "_info": {
+      "name": "Merit._info.name",
+      "help": "Merit._info.help"
+    },
+    "Value": {
+      "name": "Merit.Value.name",
+      "help": "Merit.Value.help"
+    },
+    "Color": {
+      "name": "Merit.Color.name",
+      "help": "Merit.Color.help"
+    },
+    "Record": {
+      "name": "Merit.Record.name",
+      "help": "Merit.Record.help"
+    }
+  },
+  "Cube": {
+    "_info": {
+      "name": "Cube._info.name",
+      "help": "Cube._info.help"
+    },
+    "Value": {
+      "name": "Cube.Value.name",
+      "help": "Cube.Value.help"
+    },
+    "Color": {
+      "name": "Cube.Color.name",
+      "help": "Cube.Color.help"
+    },
+    "Record": {
+      "name": "Cube.Record.name",
+      "help": "Cube.Record.help"
+    }
+  },
+  "Core": {
+    "_info": {
+      "name": "Core._info.name",
+      "help": "Core._info.help"
+    },
+    "Value": {
+      "name": "Core.Value.name",
+      "help": "Core.Value.help"
+    },
+    "Color": {
+      "name": "Core.Color.name",
+      "help": "Core.Color.help"
+    },
+    "Record": {
+      "name": "Core.Record.name",
+      "help": "Core.Record.help"
+    }
+  },
+  "Medal": {
+    "_info": {
+      "name": "Medal._info.name",
+      "help": "Medal._info.help"
+    },
+    "Value": {
+      "name": "Medal.Value.name",
+      "help": "Medal.Value.help"
+    },
+    "Color": {
+      "name": "Medal.Color.name",
+      "help": "Medal.Color.help"
+    },
+    "Record": {
+      "name": "Medal.Record.name",
+      "help": "Medal.Record.help"
+    }
+  },
+  "GuildCoin": {
+    "_info": {
+      "name": "GuildCoin._info.name",
+      "help": "GuildCoin._info.help"
+    },
+    "Value": {
+      "name": "GuildCoin.Value.name",
+      "help": "GuildCoin.Value.help"
+    },
+    "Color": {
+      "name": "GuildCoin.Color.name",
+      "help": "GuildCoin.Color.help"
+    },
+    "Record": {
+      "name": "GuildCoin.Record.name",
+      "help": "GuildCoin.Record.help"
     }
   },
   "AutoRestart": {
@@ -2795,28 +2957,6 @@
       "help": "AutoRestart.NotifyWhenAutoRestart.help"
     }
   },
-  "InstanceRestart": {
-    "_info": {
-      "name": "InstanceRestart._info.name",
-      "help": "InstanceRestart._info.help"
-    },
-    "Enabled": {
-      "name": "InstanceRestart.Enabled.name",
-      "help": "InstanceRestart.Enabled.help"
-    },
-    "AttemptsToRestart": {
-      "name": "InstanceRestart.AttemptsToRestart.name",
-      "help": "InstanceRestart.AttemptsToRestart.help"
-    },
-    "NotifyWhenAutoRestart": {
-      "name": "InstanceRestart.NotifyWhenAutoRestart.name",
-      "help": "InstanceRestart.NotifyWhenAutoRestart.help"
-    },
-    "HasRestarted": {
-      "name": "InstanceRestart.HasRestarted.name",
-      "help": "InstanceRestart.HasRestarted.help"
-    }
-  },
   "Storage": {
     "_info": {
       "name": "Task status",
@@ -2828,10 +2968,6 @@
     }
   },
   "Gui": {
-    "Login": {
-      "Login": "Please login below.",
-      "LoginError": "Wrong password!"
-    },
     "Aside": {
       "Install": "Install",
       "Home": "Home",
@@ -2858,9 +2994,7 @@
       "DisableTranslateMode": "Click here to disable translate mode",
       "ConfigSaved": "Config saved",
       "AlasIsRunning": "Scheduler is already running",
-      "ClickToUpdate": "New update available, click here to update",
-      "AlasRestart": "Alas will restart in 3 seconds",
-      "ReloadEnabled": "Reload not enabled"
+      "ClickToUpdate": "New update available, click here to update"
     },
     "Status": {
       "Running": "Running",
@@ -2877,26 +3011,17 @@
       "Translate": "Translate",
       "Update": "Updater",
       "Remote": "Remote access",
-      "Utils": "Utils",
-      "RaiseException": "Raise Exception",
-      "ForceRestart": "Force Restart"
+      "Utils": "Utils"
     },
     "Overview": {
       "Scheduler": "Scheduler",
-      "Dashboard": "Dashboard",
-      "Log": "Log",
-      "Running": "Running",
-      "Pending": "Pending",
-      "Waiting": "Waiting",
-      "NoTask": "No Task"
-    },
-    "Dashboard": {
-      "TimeError": "TimeError",
-      "JustNow": "JustNow",
+      "Dashboard": "Gui.Overview.Dashboard",
+      "SecondsAgo": "Seconds ago",
       "MinutesAgo": "Minutes ago",
       "HoursAgo": "Hours ago",
       "DaysAgo": "Days ago",
-      "LongTimeAgo": "Long time ago",
+      "MonthsAgo": "Months ago",
+      "YearsAgo": "Years ago",
       "NoData": "No data",
       "Oil": "Oil",
       "Coin": "Coin",
@@ -2909,7 +3034,12 @@
       "Merit": "Merit",
       "Medal": "Medal",
       "Core": "Core Data",
-      "GuildCoin": "Guild Coin"
+      "GuildCoin": "Guild Coin",
+      "Log": "Log",
+      "Running": "Running",
+      "Pending": "Pending",
+      "Waiting": "Waiting",
+      "NoTask": "No Task"
     },
     "AddAlas": {
       "PopupTitle": "Add new config",

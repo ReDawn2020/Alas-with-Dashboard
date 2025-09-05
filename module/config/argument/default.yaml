@@ -6,8 +6,6 @@
 
 # ==================== Farm ====================
 
-# ==================== Main ====================
-
 # ==================== Event ====================
 
 EventA:
@@ -54,9 +52,6 @@ Reward:
 # ==================== DailyReward ====================
 
 Freebies:
-  Scheduler:
-    Enable: true
-DashboardUpdate:
   Scheduler:
     Enable: true
 

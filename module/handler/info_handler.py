@@ -146,7 +146,7 @@ class InfoHandler(ModuleBase):
             POPUP_CANCEL_WHITE, POPUP_CONFIRM_WHITE,
         ])
 
-    _hot_fix_check_wait = Timer(10)
+    _hot_fix_check_wait = Timer(6)
 
     def handle_urgent_commission(self, drop=None):
         """
@@ -165,11 +165,11 @@ class InfoHandler(ModuleBase):
             self.device.click(GET_MISSION)
             self._hot_fix_check_wait.reset()
 
-        # Check game client existence after 5s to 10s
+        # Check game client existence after 3s to 6s
         # Hot fixes will kill AL if you clicked the confirm button
         if self._hot_fix_check_wait.reached():
             self._hot_fix_check_wait.clear()
-        if self._hot_fix_check_wait.started() and 5 <= self._hot_fix_check_wait.current() <= 10:
+        if self._hot_fix_check_wait.started() and 3 <= self._hot_fix_check_wait.current() <= 6:
             if not self.device.app_is_running():
                 logger.error('Detected hot fixes from game server, game died')
                 raise GameNotRunningError
@@ -179,11 +179,11 @@ class InfoHandler(ModuleBase):
                              'probably because account kicked by server maintenance or another log in')
                 # Kill game, because game patches after maintenance can only be downloaded at game startup
                 self.device.app_stop()
-                self.device.app_start()
                 raise GameNotRunningError
             self._hot_fix_check_wait.clear()
 
         return appear
+
 
     def handle_combat_low_emotion(self):
         if not self.emotion.is_ignore:

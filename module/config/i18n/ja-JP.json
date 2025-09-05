@@ -46,20 +46,16 @@
       "name": "再起動設定",
       "help": ""
     },
-    "MainNormal": {
-      "name": "メイン海域(Normal)",
-      "help": ""
-    },
-    "MainHard": {
-      "name": "メイン海域(Hard)",
-      "help": ""
-    },
     "Main": {
       "name": "メイン海域",
       "help": ""
     },
     "Main2": {
       "name": "メイン海域-2",
+      "help": ""
+    },
+    "Main3": {
+      "name": "メイン海域-3",
       "help": ""
     },
     "GemsFarming": {
@@ -76,10 +72,6 @@
     },
     "Event2": {
       "name": "イベント海域-2",
-      "help": ""
-    },
-    "Event3": {
-      "name": "イベント海域-3",
       "help": ""
     },
     "Raid": {
@@ -202,10 +194,6 @@
       "name": "Task.PrivateQuarters.name",
       "help": "Task.PrivateQuarters.help"
     },
-    "DashboardUpdate": {
-      "name": "Dashboard Update",
-      "help": ""
-    },
     "OpsiGeneral": {
       "name": "一般設定",
       "help": ""
@@ -278,10 +266,6 @@
       "name": "Event Story",
       "help": ""
     },
-    "BoxDisassemble": {
-      "name": "Task.BoxDisassemble.name",
-      "help": "Task.BoxDisassemble.help"
-    },
     "Benchmark": {
       "name": "機能テスト",
       "help": ""
@@ -293,10 +277,6 @@
     "GameManager": {
       "name": "Game Manager(WIP)",
       "help": ""
-    },
-    "GGManager": {
-      "name": "Task.GGManager.name",
-      "help": "Task.GGManager.help"
     }
   },
   "Scheduler": {
@@ -755,7 +735,7 @@
       "event_20220728_cn": "鋼鷲の冒険譚（復刻）",
       "event_20220818_cn": "結像点作戦（復刻）",
       "event_20220915_cn": "赫の涙月 菫の暁風（復刻）",
-      "event_20221124_cn": "錬金術士と謎の遺跡群島 （復刻）",
+      "event_20221124_cn": "錬金術士と謎の遺跡群島（復刻）",
       "event_20221222_cn": "積重なる事象の幻界（復刻）",
       "event_20230223_cn": "黙示の遺構（復刻）",
       "event_20230525_cn": "覆天せし万象の塵（復刻）",
@@ -876,9 +856,9 @@
       "help": "StopCondition.MapAchievement.help",
       "non_stop": "non_stop",
       "100_percent_clear": "100_percent_clear",
-      "threat_safe_without_3_stars": "threat_safe_without_3_stars",
       "map_3_stars": "map_3_stars",
-      "threat_safe": "threat_safe"
+      "threat_safe": "threat_safe",
+      "threat_safe_without_3_stars": "threat_safe_without_3_stars"
     },
     "StageIncrease": {
       "name": "StopCondition.StageIncrease.name",
@@ -916,8 +896,8 @@
       "diamond": "diamond"
     },
     "Fleet1Mode": {
-      "name": "Fleet1 Action Mode",
-      "help": "",
+      "name": "Fleet.Fleet1Mode.name",
+      "help": "Fleet.Fleet1Mode.help",
       "combat_auto": "combat_auto",
       "combat_manual": "combat_manual",
       "stand_still_in_the_middle": "stand_still_in_the_middle",
@@ -950,8 +930,8 @@
       "diamond": "diamond"
     },
     "Fleet2Mode": {
-      "name": "Fleet2 Action Mode",
-      "help": "",
+      "name": "Fleet.Fleet2Mode.name",
+      "help": "Fleet.Fleet2Mode.help",
       "combat_auto": "combat_auto",
       "combat_manual": "combat_manual",
       "stand_still_in_the_middle": "stand_still_in_the_middle",
@@ -1226,6 +1206,14 @@
       "cassin_or_downes": "GemsFarming.CommonDD.cassin_or_downes",
       "z20_or_z21": "GemsFarming.CommonDD.z20_or_z21"
     },
+    "ALLowLowVanguardLevel": {
+      "name": "GemsFarming.ALLowLowVanguardLevel.name",
+      "help": "GemsFarming.ALLowLowVanguardLevel.help"
+    },
+    "StopIFAutoNotEnsured": {
+      "name": "GemsFarming.StopIFAutoNotEnsured.name",
+      "help": "GemsFarming.StopIFAutoNotEnsured.help"
+    },
     "CommissionLimit": {
       "name": "GemsFarming.CommissionLimit.name",
       "help": "GemsFarming.CommissionLimit.help"
@@ -1261,10 +1249,9 @@
     "TaskCall": {
       "name": "TaskBalancer.TaskCall.name",
       "help": "TaskBalancer.TaskCall.help",
-      "MainNormal": "MainNormal",
-      "MainHard": "MainHard",
       "Main": "Main",
-      "Main2": "Main2"
+      "Main2": "Main2",
+      "Main3": "Main3"
     }
   },
   "EventDaily": {
@@ -1317,6 +1304,10 @@
     "UseRecommendFleet": {
       "name": "Hospital.UseRecommendFleet.name",
       "help": "Hospital.UseRecommendFleet.help"
+    },
+    "mapName": {
+      "name": "Hospital.mapName.name",
+      "help": "Hospital.mapName.help"
     }
   },
   "MaritimeEscort": {
@@ -2102,16 +2093,6 @@
       "new_jersey": "new_jersey"
     }
   },
-  "DashboardUpdate": {
-    "_info": {
-      "name": "DashboardUpdate._info.name",
-      "help": "DashboardUpdate._info.help"
-    },
-    "Update": {
-      "name": "DashboardUpdate.Update.name",
-      "help": "DashboardUpdate.Update.help"
-    }
-  },
   "Daily": {
     "_info": {
       "name": "Daily._info.name",
@@ -2256,6 +2237,16 @@
     "_info": {
       "name": "Exercise._info.name",
       "help": "Exercise._info.help"
+    },
+    "DelayUntilHoursBeforeNextUpdate": {
+      "name": "Exercise.DelayUntilHoursBeforeNextUpdate.name",
+      "help": "Exercise.DelayUntilHoursBeforeNextUpdate.help",
+      "1": "1",
+      "2": "2",
+      "3": "3",
+      "4": "4",
+      "5": "5",
+      "12": "12"
     },
     "OpponentChooseMode": {
       "name": "Exercise.OpponentChooseMode.name",
@@ -2414,8 +2405,8 @@
       "4": "4"
     },
     "FleetMode": {
-      "name": "Action Mode",
-      "help": "",
+      "name": "OpsiFleet.FleetMode.name",
+      "help": "OpsiFleet.FleetMode.help",
       "combat_auto": "combat_auto",
       "combat_manual": "combat_manual",
       "stand_still_in_the_middle": "stand_still_in_the_middle",
@@ -2573,24 +2564,6 @@
       "22": "22"
     }
   },
-  "OpsiCheckLeveling": {
-    "_info": {
-      "name": "OpsiCheckLeveling._info.name",
-      "help": "OpsiCheckLeveling._info.help"
-    },
-    "TargetLevel": {
-      "name": "OpsiCheckLeveling.TargetLevel.name",
-      "help": "OpsiCheckLeveling.TargetLevel.help"
-    },
-    "LastRun": {
-      "name": "OpsiCheckLeveling.LastRun.name",
-      "help": "OpsiCheckLeveling.LastRun.help"
-    },
-    "DelayAfterFull": {
-      "name": "OpsiCheckLeveling.DelayAfterFull.name",
-      "help": "OpsiCheckLeveling.DelayAfterFull.help"
-    }
-  },
   "Daemon": {
     "_info": {
       "name": "Daemon._info.name",
@@ -2627,36 +2600,6 @@
       "False": "False"
     }
   },
-  "BoxDisassemble": {
-    "_info": {
-      "name": "BoxDisassemble._info.name",
-      "help": "BoxDisassemble._info.help"
-    },
-    "UsePurpleBox": {
-      "name": "BoxDisassemble.UsePurpleBox.name",
-      "help": "BoxDisassemble.UsePurpleBox.help"
-    },
-    "PurpleBoxLimit": {
-      "name": "BoxDisassemble.PurpleBoxLimit.name",
-      "help": "BoxDisassemble.PurpleBoxLimit.help"
-    },
-    "UseBlueBox": {
-      "name": "BoxDisassemble.UseBlueBox.name",
-      "help": "BoxDisassemble.UseBlueBox.help"
-    },
-    "BlueBoxLimit": {
-      "name": "BoxDisassemble.BlueBoxLimit.name",
-      "help": "BoxDisassemble.BlueBoxLimit.help"
-    },
-    "UseWhiteBox": {
-      "name": "BoxDisassemble.UseWhiteBox.name",
-      "help": "BoxDisassemble.UseWhiteBox.help"
-    },
-    "WhiteBoxLimit": {
-      "name": "BoxDisassemble.WhiteBoxLimit.name",
-      "help": "BoxDisassemble.WhiteBoxLimit.help"
-    }
-  },
   "Benchmark": {
     "_info": {
       "name": "Benchmark._info.name",
@@ -2687,13 +2630,6 @@
     "Repository": {
       "name": "反和谐仓库",
       "help": "一般不需要修改\n仓库 https://github.com/LmeSzinc/AzurLaneUncensored\n国内镜像（默认） https://gitee.com/LmeSzinc/AzurLaneUncensored"
-    },
-    "Option": {
-      "name": "AzurLaneUncensored.Option.name",
-      "help": "AzurLaneUncensored.Option.help",
-      "all": "all",
-      "main": "main",
-      "only_patch": "only_patch"
     }
   },
   "GameManager": {
@@ -2706,51 +2642,53 @@
       "help": "GameManager.AutoRestart.help"
     }
   },
-  "GGManager": {
+  "GGHandler": {
     "_info": {
-      "name": "GGManager._info.name",
-      "help": "GGManager._info.help"
+      "name": "GGHandler._info.name",
+      "help": "GGHandler._info.help"
     },
-    "Enable": {
-      "name": "GGManager.Enable.name",
-      "help": "GGManager.Enable.help"
+    "Enabled": {
+      "name": "GGHandler.Enabled.name",
+      "help": "GGHandler.Enabled.help"
     },
-    "RestartEverytime": {
-      "name": "GGManager.RestartEverytime.name",
-      "help": "GGManager.RestartEverytime.help"
+    "GGMethod": {
+      "name": "GGHandler.GGMethod.name",
+      "help": "GGHandler.GGMethod.help",
+      "u2": "u2"
     },
-    "GGMultiplyingFactor": {
-      "name": "GGManager.GGMultiplyingFactor.name",
-      "help": "GGManager.GGMultiplyingFactor.help"
-    },
-    "GGAction": {
-      "name": "GGManager.GGAction.name",
-      "help": "GGManager.GGAction.help",
-      "auto": "auto",
-      "manual": "manual"
-    },
-    "GGLuapath": {
-      "name": "GGManager.GGLuapath.name",
-      "help": "GGManager.GGLuapath.help"
-    },
-    "GGLuapathRecord": {
-      "name": "GGManager.GGLuapathRecord.name",
-      "help": "GGManager.GGLuapathRecord.help"
+    "RestartATX": {
+      "name": "GGHandler.RestartATX.name",
+      "help": "GGHandler.RestartATX.help"
     },
     "GGPackageName": {
-      "name": "GGManager.GGPackageName.name",
-      "help": "GGManager.GGPackageName.help"
+      "name": "GGHandler.GGPackageName.name",
+      "help": "GGHandler.GGPackageName.help"
     },
-    "GGLowLimit": {
-      "name": "GGManager.GGLowLimit.name",
-      "help": "GGManager.GGLowLimit.help"
+    "AutoRestartGG": {
+      "name": "GGHandler.AutoRestartGG.name",
+      "help": "GGHandler.AutoRestartGG.help"
+    },
+    "RestartEverytime": {
+      "name": "GGHandler.RestartEverytime.name",
+      "help": "GGHandler.RestartEverytime.help"
+    },
+    "RepushLua": {
+      "name": "GGHandler.RepushLua.name",
+      "help": "GGHandler.RepushLua.help"
+    },
+    "GGMultiplyingFactor": {
+      "name": "GGHandler.GGMultiplyingFactor.name",
+      "help": "GGHandler.GGMultiplyingFactor.help"
+    },
+    "Timeout": {
+      "name": "GGHandler.Timeout.name",
+      "help": "GGHandler.Timeout.help"
     },
     "DisabledTask": {
-      "name": "GGManager.DisabledTask.name",
-      "help": "GGManager.DisabledTask.help",
-      "disable_guild_and_dangerous": "disable_guild_and_dangerous",
+      "name": "GGHandler.DisabledTask.name",
+      "help": "GGHandler.DisabledTask.help",
       "disable_all_dangerous_task": "disable_all_dangerous_task",
-      "disable_meta_and_exercise": "disable_meta_and_exercise",
+      "disable_guild_and_dangerous": "disable_guild_and_dangerous",
       "disable_exercise": "disable_exercise",
       "enable_all": "enable_all"
     }
@@ -2771,10 +2709,234 @@
     "Ash": {
       "name": "PowerLimit.Ash.name",
       "help": "PowerLimit.Ash.help"
+    }
+  },
+  "Oil": {
+    "_info": {
+      "name": "Oil._info.name",
+      "help": "Oil._info.help"
     },
-    "Coalition": {
-      "name": "PowerLimit.Coalition.name",
-      "help": "PowerLimit.Coalition.help"
+    "Value": {
+      "name": "Oil.Value.name",
+      "help": "Oil.Value.help"
+    },
+    "Limit": {
+      "name": "Oil.Limit.name",
+      "help": "Oil.Limit.help"
+    },
+    "Color": {
+      "name": "Oil.Color.name",
+      "help": "Oil.Color.help"
+    },
+    "Record": {
+      "name": "Oil.Record.name",
+      "help": "Oil.Record.help"
+    }
+  },
+  "Coin": {
+    "_info": {
+      "name": "Coin._info.name",
+      "help": "Coin._info.help"
+    },
+    "Value": {
+      "name": "Coin.Value.name",
+      "help": "Coin.Value.help"
+    },
+    "Limit": {
+      "name": "Coin.Limit.name",
+      "help": "Coin.Limit.help"
+    },
+    "Color": {
+      "name": "Coin.Color.name",
+      "help": "Coin.Color.help"
+    },
+    "Record": {
+      "name": "Coin.Record.name",
+      "help": "Coin.Record.help"
+    }
+  },
+  "Gem": {
+    "_info": {
+      "name": "Gem._info.name",
+      "help": "Gem._info.help"
+    },
+    "Value": {
+      "name": "Gem.Value.name",
+      "help": "Gem.Value.help"
+    },
+    "Color": {
+      "name": "Gem.Color.name",
+      "help": "Gem.Color.help"
+    },
+    "Record": {
+      "name": "Gem.Record.name",
+      "help": "Gem.Record.help"
+    }
+  },
+  "Pt": {
+    "_info": {
+      "name": "Pt._info.name",
+      "help": "Pt._info.help"
+    },
+    "Value": {
+      "name": "Pt.Value.name",
+      "help": "Pt.Value.help"
+    },
+    "Color": {
+      "name": "Pt.Color.name",
+      "help": "Pt.Color.help"
+    },
+    "Record": {
+      "name": "Pt.Record.name",
+      "help": "Pt.Record.help"
+    }
+  },
+  "YellowCoin": {
+    "_info": {
+      "name": "YellowCoin._info.name",
+      "help": "YellowCoin._info.help"
+    },
+    "Value": {
+      "name": "YellowCoin.Value.name",
+      "help": "YellowCoin.Value.help"
+    },
+    "Color": {
+      "name": "YellowCoin.Color.name",
+      "help": "YellowCoin.Color.help"
+    },
+    "Record": {
+      "name": "YellowCoin.Record.name",
+      "help": "YellowCoin.Record.help"
+    }
+  },
+  "PurpleCoin": {
+    "_info": {
+      "name": "PurpleCoin._info.name",
+      "help": "PurpleCoin._info.help"
+    },
+    "Value": {
+      "name": "PurpleCoin.Value.name",
+      "help": "PurpleCoin.Value.help"
+    },
+    "Color": {
+      "name": "PurpleCoin.Color.name",
+      "help": "PurpleCoin.Color.help"
+    },
+    "Record": {
+      "name": "PurpleCoin.Record.name",
+      "help": "PurpleCoin.Record.help"
+    }
+  },
+  "ActionPoint": {
+    "_info": {
+      "name": "ActionPoint._info.name",
+      "help": "ActionPoint._info.help"
+    },
+    "Value": {
+      "name": "ActionPoint.Value.name",
+      "help": "ActionPoint.Value.help"
+    },
+    "Total": {
+      "name": "ActionPoint.Total.name",
+      "help": "ActionPoint.Total.help"
+    },
+    "Color": {
+      "name": "ActionPoint.Color.name",
+      "help": "ActionPoint.Color.help"
+    },
+    "Record": {
+      "name": "ActionPoint.Record.name",
+      "help": "ActionPoint.Record.help"
+    }
+  },
+  "Merit": {
+    "_info": {
+      "name": "Merit._info.name",
+      "help": "Merit._info.help"
+    },
+    "Value": {
+      "name": "Merit.Value.name",
+      "help": "Merit.Value.help"
+    },
+    "Color": {
+      "name": "Merit.Color.name",
+      "help": "Merit.Color.help"
+    },
+    "Record": {
+      "name": "Merit.Record.name",
+      "help": "Merit.Record.help"
+    }
+  },
+  "Cube": {
+    "_info": {
+      "name": "Cube._info.name",
+      "help": "Cube._info.help"
+    },
+    "Value": {
+      "name": "Cube.Value.name",
+      "help": "Cube.Value.help"
+    },
+    "Color": {
+      "name": "Cube.Color.name",
+      "help": "Cube.Color.help"
+    },
+    "Record": {
+      "name": "Cube.Record.name",
+      "help": "Cube.Record.help"
+    }
+  },
+  "Core": {
+    "_info": {
+      "name": "Core._info.name",
+      "help": "Core._info.help"
+    },
+    "Value": {
+      "name": "Core.Value.name",
+      "help": "Core.Value.help"
+    },
+    "Color": {
+      "name": "Core.Color.name",
+      "help": "Core.Color.help"
+    },
+    "Record": {
+      "name": "Core.Record.name",
+      "help": "Core.Record.help"
+    }
+  },
+  "Medal": {
+    "_info": {
+      "name": "Medal._info.name",
+      "help": "Medal._info.help"
+    },
+    "Value": {
+      "name": "Medal.Value.name",
+      "help": "Medal.Value.help"
+    },
+    "Color": {
+      "name": "Medal.Color.name",
+      "help": "Medal.Color.help"
+    },
+    "Record": {
+      "name": "Medal.Record.name",
+      "help": "Medal.Record.help"
+    }
+  },
+  "GuildCoin": {
+    "_info": {
+      "name": "GuildCoin._info.name",
+      "help": "GuildCoin._info.help"
+    },
+    "Value": {
+      "name": "GuildCoin.Value.name",
+      "help": "GuildCoin.Value.help"
+    },
+    "Color": {
+      "name": "GuildCoin.Color.name",
+      "help": "GuildCoin.Color.help"
+    },
+    "Record": {
+      "name": "GuildCoin.Record.name",
+      "help": "GuildCoin.Record.help"
     }
   },
   "AutoRestart": {
@@ -2795,28 +2957,6 @@
       "help": "AutoRestart.NotifyWhenAutoRestart.help"
     }
   },
-  "InstanceRestart": {
-    "_info": {
-      "name": "InstanceRestart._info.name",
-      "help": "InstanceRestart._info.help"
-    },
-    "Enabled": {
-      "name": "InstanceRestart.Enabled.name",
-      "help": "InstanceRestart.Enabled.help"
-    },
-    "AttemptsToRestart": {
-      "name": "InstanceRestart.AttemptsToRestart.name",
-      "help": "InstanceRestart.AttemptsToRestart.help"
-    },
-    "NotifyWhenAutoRestart": {
-      "name": "InstanceRestart.NotifyWhenAutoRestart.name",
-      "help": "InstanceRestart.NotifyWhenAutoRestart.help"
-    },
-    "HasRestarted": {
-      "name": "InstanceRestart.HasRestarted.name",
-      "help": "InstanceRestart.HasRestarted.help"
-    }
-  },
   "Storage": {
     "_info": {
       "name": "Storage._info.name",
@@ -2828,10 +2968,6 @@
     }
   },
   "Gui": {
-    "Login": {
-      "Login": "Please login below.",
-      "LoginError": "Wrong password!"
-    },
     "Aside": {
       "Install": "インストール",
       "Home": "Gui.Aside.Home",
@@ -2845,8 +2981,8 @@
       "Stop": "中止",
       "ScrollON": "自動スクロール ON",
       "ScrollOFF": "自動スクロール OFF",
-      "DashboardON": "Fold",
-      "DashboardOFF": "Unfold",
+      "DashboardON": "Gui.Button.DashboardON",
+      "DashboardOFF": "Gui.Button.DashboardOFF",
       "ClearLog": "ログクリーニング",
       "Setting": "設定",
       "CheckUpdate": "アップデータチェック",
@@ -2858,9 +2994,7 @@
       "DisableTranslateMode": "クリックして翻訳モードを中止します",
       "ConfigSaved": "コンフィグ設定は保存されました",
       "AlasIsRunning": "スケジューラーはもう実行しています",
-      "ClickToUpdate": "新しいアップデータがあります。クリックしてアップデータ",
-      "AlasRestart": "Alas will restart in 3 seconds",
-      "ReloadEnabled": "Reload not enabled"
+      "ClickToUpdate": "新しいアップデータがあります。クリックしてアップデータ"
     },
     "Status": {
       "Running": "実行中",
@@ -2877,26 +3011,17 @@
       "Translate": "翻訳",
       "Update": "アップデータ",
       "Remote": "遠隔操作",
-      "Utils": "ツール",
-      "RaiseException": "Raise Exception",
-      "ForceRestart": "Force Restart"
+      "Utils": "ツール"
     },
     "Overview": {
       "Scheduler": "スケジューラー",
-      "Dashboard": "ダッシュボード",
-      "Log": "ログ",
-      "Running": "実行中",
-      "Pending": "隊列中",
-      "Waiting": "Waiting",
-      "NoTask": "No Task"
-    },
-    "Dashboard": {
-      "TimeError": "TimeError",
-      "JustNow": "JustNow",
+      "Dashboard": "Gui.Overview.Dashboard",
+      "SecondsAgo": "Seconds ago",
       "MinutesAgo": "Minutes ago",
       "HoursAgo": "Hours ago",
       "DaysAgo": "Days ago",
-      "LongTimeAgo": "Long time ago",
+      "MonthsAgo": "Months ago",
+      "YearsAgo": "Years ago",
       "NoData": "No data",
       "Oil": "Oil",
       "Coin": "Coin",
@@ -2909,7 +3034,12 @@
       "Merit": "Merit",
       "Medal": "Medal",
       "Core": "Core Data",
-      "GuildCoin": "Guild Coin"
+      "GuildCoin": "Guild Coin",
+      "Log": "ログ",
+      "Running": "実行中",
+      "Pending": "隊列中",
+      "Waiting": "Waiting",
+      "NoTask": "No Task"
     },
     "AddAlas": {
       "PopupTitle": "新しいコンフィグを追加",

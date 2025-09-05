@@ -153,10 +153,11 @@ Deploy:
     # '["alas","alas2"]' specified "alas" "alas2" configs
     Run: null
     # To update app.asar
-    # 'true' default, use lme
-    # 'false' use me
-    # 'null' disable autoupdate
+    # [In most cases] true
     AppAsarUpdate: true
+    # --no-sandbox. https://github.com/electron/electron/issues/30966
+    # Some Windows systems cannot call the GPU normally for virtualization, and you need to manually turn off sandbox mode
+    NoSandbox: false
     # SSL support
     # Only effective when both parameters below are set
     # --ssl-key. Path to SSL key file

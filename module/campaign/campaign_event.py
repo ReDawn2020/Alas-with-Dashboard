@@ -31,8 +31,8 @@ class CampaignEvent(CampaignStatus):
                     continue
                 name = self.config.cross_get(keys=f'{task}.Campaign.Name', default='2-4')
                 if not self.stage_is_main(name):
-                    from module.config.utils import deep_get
-                    _gg_on = deep_get(self.config.data, keys='GGManager.GGManager.Enable')
+                    from module.config.deep import deep_get
+                    _gg_on = deep_get(self.config.data, keys='GameManager.GGHandler.Enabled')
                     if _gg_on:
                         campaign_to_go = '15-1'
                     else:
@@ -58,14 +58,16 @@ class CampaignEvent(CampaignStatus):
         )
         tasks = EVENTS + RAIDS + COALITIONS + GEMS_FARMINGS + HOSPITAL
         command = self.config.Scheduler_Command
-        if limit < 0 or command not in tasks:
+        if limit <= 0 or command not in tasks:
+            self.get_event_pt()
             return False
         if command in GEMS_FARMINGS and self.stage_is_main(self.config.Campaign_Name):
+            self.get_event_pt()
             return False
 
         pt = self.get_event_pt()
-        if pt >= limit and limit > 0:
-            logger.attr('Event_PT_limit', f'{pt}/{limit}')
+        logger.attr('Event_PT_limit', f'{pt}/{limit}')
+        if pt >= limit:
             logger.hr(f'Reach event PT limit: {limit}')
             self._disable_tasks(tasks)
             return True
@@ -104,8 +106,9 @@ class CampaignEvent(CampaignStatus):
         Pages:
             in: page_event or page_sp
         """
+        from module.config.deep import deep_get
         limit = self.config.TaskBalancer_CoinLimit
-        coin = self._get_coin()
+        coin = deep_get(self.config.data, 'Dashboard.Coin.Value')
         logger.attr('Coin Count', coin)
         # Check Coin
         if coin == 0:
@@ -123,11 +126,12 @@ class CampaignEvent(CampaignStatus):
                 return False
 
     def handle_task_balancer(self):
-        self.config.task_delay(minute=5)
-        next_task = self.config.TaskBalancer_TaskCall
-        logger.hr(f'TaskBalancer triggered, switching task to {next_task}')
-        self.config.task_call(next_task)
-        self.config.task_stop()
+        if self.config.TaskBalancer_Enable and self.triggered_task_balancer():
+            self.config.task_delay(minute=5)
+            next_task = self.config.TaskBalancer_TaskCall
+            logger.hr(f'TaskBalancer triggered, switching task to {next_task}')
+            self.config.task_call(next_task)
+            self.config.task_stop()
 
     def is_event_entrance_available(self):
         """

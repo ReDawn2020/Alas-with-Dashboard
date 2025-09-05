@@ -7,7 +7,7 @@ config/*.yaml
 !config/deploy.*.yaml
 config/*.json
 config/tmp*
-gg_config/*.json
+*.tmp
 !config/template*.json
 *.pyw
 dev_tools/debug_tools
@@ -251,11 +251,7 @@ adb_port.ini
 *.exe
 !popup.exe
 *.zip
-console.bat
 .vscode/*
 
 # Pylance configuration file
 pyrightconfig.json
-
-# Mac
-.DS_Store

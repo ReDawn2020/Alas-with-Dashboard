@@ -13,15 +13,6 @@ class ExerciseCombat(HpDaemon, OpponentChoose, ExerciseEquipment, Combat):
 
     def _combat_preparation(self, skip_first_screenshot=True):
         logger.info('Combat preparation')
-        # Power limit check
-        from module.gg_manager.gg_manager import GGManager
-        gg_enable = self.config.cross_get('GGManager.GGManager.Enable', default=True)
-        gg_restart = self.config.cross_get('GGManager.GGManager.RestartEverytime', default=True)
-        if gg_enable and gg_restart:
-            if GGManager(self.config, self.device).power_limit('Exercise'):
-                self.config.task_delay(minute=0.5)
-                self.config.task_call('Restart')
-                self.config.task_stop()
         self.device.stuck_record_clear()
         self.device.click_record_clear()
         while 1:
@@ -33,6 +24,10 @@ class ExerciseCombat(HpDaemon, OpponentChoose, ExerciseEquipment, Combat):
             if self.appear(BATTLE_PREPARATION, offset=(20, 20), interval=2):
                 # self.equipment_take_on()
                 pass
+
+                # Power limit check
+                from module.gg_handler.gg_handler import GGHandler
+                GGHandler(config=self.config, device=self.device).power_limit('Exercise')
 
                 self.device.click(BATTLE_PREPARATION)
                 continue
@@ -202,15 +197,15 @@ class ExerciseCombat(HpDaemon, OpponentChoose, ExerciseEquipment, Combat):
             return False
 
         self._choose_opponent(0)
-        self.equipment_take_off()
+        super().equipment_take_off()
         self._preparation_quit()
 
-    def equipment_take_on(self):
-        if self.config.EXERCISE_FLEET_EQUIPMENT is None:
-            return False
-        if self.equipment_has_take_on:
-            return False
-
-        self._choose_opponent(0)
-        super().equipment_take_on()
-        self._preparation_quit()
+    # def equipment_take_on(self):
+    #     if self.config.EXERCISE_FLEET_EQUIPMENT is None:
+    #         return False
+    #     if self.equipment_has_take_on:
+    #         return False
+    #
+    #     self._choose_opponent(0)
+    #     super().equipment_take_on()
+    #     self._preparation_quit()

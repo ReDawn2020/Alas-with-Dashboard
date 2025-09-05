@@ -4,7 +4,7 @@ from copy import deepcopy
 
 from cached_property import cached_property
 
-from deploy.utils import DEPLOY_TEMPLATE, poor_yaml_read, poor_yaml_write
+from deploy.Windows.utils import DEPLOY_TEMPLATE, poor_yaml_read, poor_yaml_write
 from module.base.timer import timer
 from module.config.deep import deep_default, deep_get, deep_iter, deep_pop, deep_set
 from module.config.env import IS_ON_PHONE_CLOUD
@@ -30,9 +30,8 @@ ARCHIVES_PREFIX = {
     'jp': '檔案 ',
     'tw': '檔案 '
 }
-MAINS = ['MainNormal', 'MainHard', 'Main', 'Main2']
-EVENTS = ['Event', 'Event2', 'Event3', 'EventA', 'EventB', 'EventC', 'EventD', 'EventSp']
-EVENT_DAILY = ['EventA', 'EventB', 'EventC', 'EventD', 'EventSp']
+MAINS = ['Main', 'Main2', 'Main3']
+EVENTS = ['Event', 'Event2', 'EventA', 'EventB', 'EventC', 'EventD', 'EventSp']
 GEMS_FARMINGS = ['GemsFarming']
 RAIDS = ['Raid', 'RaidDaily']
 WAR_ARCHIVES = ['WarArchives']
@@ -453,24 +452,24 @@ class ConfigGenerator:
                     if event.is_raid:
                         if not hasattr(self, f'_{server}_latest_raid_date'):
                             setattr(self, f'_{server}_latest_raid_date', int(event.date))
-                        # if int(event.date) == getattr(self, f'_{server}_latest_raid_date'):
-                        for task in RAIDS:
-                            insert(task)
+                        if int(event.date) == getattr(self, f'_{server}_latest_raid_date'):
+                            for task in RAIDS:
+                                insert(task)
                     elif event.is_war_archives:
                         for task in WAR_ARCHIVES:
                             insert(task)
                     elif event.is_coalition:
                         if not hasattr(self, f'_{server}_latest_coalition_date'):
                             setattr(self, f'_{server}_latest_coalition_date', int(event.date))
-                        # if int(event.date) == getattr(self, f'_{server}_latest_coalition_date'):
-                        for task in COALITIONS:
-                            insert(task)
+                        if int(event.date) == getattr(self, f'_{server}_latest_coalition_date'):
+                            for task in COALITIONS:
+                                insert(task)
                     else:
                         if not hasattr(self, f'_{server}_latest_event_date'):
                             setattr(self, f'_{server}_latest_event_date', int(event.date))
-                        # if int(event.date) == getattr(self, f'_{server}_latest_event_date'):
-                        for task in EVENTS + GEMS_FARMINGS:
-                            insert(task)
+                        if int(event.date) == getattr(self, f'_{server}_latest_event_date'):
+                            for task in EVENTS + GEMS_FARMINGS:
+                                insert(task)
 
         for task in EVENTS + GEMS_FARMINGS + WAR_ARCHIVES + RAIDS + COALITIONS:
             latest = {}
@@ -671,16 +670,13 @@ class ConfigUpdater:
         # Update to latest event
         server = to_server(deep_get(new, 'Alas.Emulator.PackageName', 'cn'))
         if not is_template:
-            # for task in EVENTS + RAIDS + COALITIONS:
-            #     opts = deep_get(self.args, keys=f'{task}.Campaign.Event.option_{server}', default=[])
-            #     if not deep_get(new, keys=f'{task}.Campaign.Event', default='campaign_main') in opts:
-            #         deep_set(new,
-            #                  keys=f'{task}.Campaign.Event',
-            #                  value=opts[0])
-            for task in COALITIONS:
-                deep_set(new,
-                         keys=f'{task}.Campaign.Event',
-                         value=deep_get(self.args, f'{task}.Campaign.Event.{server}'))
+            for task in EVENTS + RAIDS + COALITIONS:
+                opts = deep_get(self.args, keys=f'{task}.Campaign.Event.option_{server}', default=[])
+                if not deep_get(new, keys=f'{task}.Campaign.Event', default='campaign_main') in opts:
+                    deep_set(new,
+                             keys=f'{task}.Campaign.Event',
+                             value=opts[0])
+
             for task in ['GemsFarming']:
                 if deep_get(new, keys=f'{task}.Campaign.Event', default='campaign_main') != 'campaign_main':
                     deep_set(new,

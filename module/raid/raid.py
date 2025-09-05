@@ -201,14 +201,8 @@ class Raid(MapOperation, RaidCombat, CampaignEvent):
         logger.info('Combat preparation.')
 
         # Power limit check
-         from module.gg_manager.gg_manager import GGManager
-         gg_enable = self.config.cross_get('GGManager.GGManager.Enable', default=True)
-         gg_restart = self.config.cross_get('GGManager.GGManager.RestartEverytime', default=True)
-         if gg_enable and gg_restart:
-             if GGManager(self.config, self.device).power_limit('Raid'):
-                 self.config.task_delay(minute=0.5)
-                 self.config.task_call('Restart')
-                 self.config.task_stop()
+        from module.gg_handler.gg_handler import GGHandler
+        GGHandler(config=self.config, device=self.device).power_limit('Raid')
 
         skip_first_screenshot = True
 
@@ -356,7 +350,7 @@ class Raid(MapOperation, RaidCombat, CampaignEvent):
         Pages:
             in: page_raid
         """
-        from module.log_res import LogRes
+        from module.log_res.log_res import LogRes
         skip_first_screenshot = True
         timeout = Timer(1.5, count=5).start()
         ocr = pt_ocr(self.config.Campaign_Event)

@@ -288,10 +288,10 @@ class FastForwardHandler(AutoSearchHandler):
                 from module.notify import handle_notify
                 if not handle_notify(
                     self.config.Error_OnePushConfig,
-                    title=f"Alas <{self.config.config_name}> crashed(崩溃了)",
-                    content=f"<{self.config.config_name}> RequestHumanTakeover(需要手动介入)\n"
-                            f"Task GemsFarming could not set auto search settings(任务无法设置自动搜索设置)",
-                            ):
+                    title=f"Alas <{self.config.config_name}> crashed",
+                    content=f"<{self.config.config_name}> RequestHumanTakeover\n"
+                            f"Task GemsFarming could not set auto search settings",
+                                     ):
                     from module.exception import AutoSearchSetError
                     raise AutoSearchSetError
                 self.config.modified['GemsFarming.Scheduler.Enable'] = False
@@ -477,7 +477,7 @@ class FastForwardHandler(AutoSearchHandler):
                 or 2x book setting is absent
 
         """
-        confirm_timer = Timer(0.3, count=1).start()
+        confirm_timer = Timer(0.8, count=2).start()
         clicked_threshold = 0
         while 1:
             if skip_first_screenshot:

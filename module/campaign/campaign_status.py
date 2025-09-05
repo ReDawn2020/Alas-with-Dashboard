@@ -1,3 +1,4 @@
+import datetime
 import re
 
 import cv2
@@ -6,21 +7,12 @@ import numpy as np
 import module.config.server as server
 
 from module.base.timer import Timer
+from module.campaign.assets import OCR_EVENT_PT, OCR_COIN, OCR_OIL, OCR_COIN_LIMIT, OCR_OIL_LIMIT, OCR_OIL_CHECK
 from module.base.utils import color_similar, get_color
-from module.campaign.assets import OCR_EVENT_PT, OCR_COIN, OCR_OIL, OCR_OIL_CHECK, OCR_COIN_LIMIT, OCR_OIL_LIMIT
 from module.logger import logger
 from module.ocr.ocr import Digit, Ocr
 from module.ui.ui import UI
-from module.log_res import LogRes
-from module.hard.assets import OCR_HARD_REMAIN
-
-OCR_HARD_REMAIN = Digit(OCR_HARD_REMAIN, letter=(123, 227, 66), threshold=128, alphabet='0123')
-if server.server != 'jp':
-    OCR_COIN = Digit(OCR_COIN, name='OCR_COIN', letter=(239, 239, 239), threshold=128)
-    OCR_COIN_LIMIT = Digit(OCR_COIN_LIMIT, name='OCR_COIN_LIMIT', letter=(239, 239, 239), threshold=128)
-else:
-    OCR_COIN = Digit(OCR_COIN, name='OCR_COIN', letter=(201, 201, 201), threshold=128)
-    OCR_COIN_LIMIT = Digit(OCR_COIN_LIMIT, name='OCR_COIN_LIMIT', letter=(201, 201, 201), threshold=128)
+from module.log_res.log_res import LogRes
 
 
 class PtOcr(Ocr):
@@ -48,7 +40,7 @@ OCR_PT = PtOcr(OCR_EVENT_PT)
 
 
 class CampaignStatus(UI):
-    def get_event_pt(self):
+    def get_event_pt(self, update=False):
         """
         Returns:
             int: PT amount, or 0 if unable to parse
@@ -63,16 +55,16 @@ class CampaignStatus(UI):
         else:
             logger.warning(f'Invalid pt result: {pt}')
             pt = 0
-        self.config.update()
+        if update:
+            self.config.update()
         return pt
 
-
-    def get_coin(self, skip_first_screenshot=True):
+    def get_coin(self, skip_first_screenshot=True, update=False):
         """
         Returns:
             int: Coin amount
         """
-        amount = 0
+        _coin = {}
         timeout = Timer(1, count=2).start()
         while 1:
             if skip_first_screenshot:
@@ -84,11 +76,17 @@ class CampaignStatus(UI):
                 logger.warning('Get coin timeout')
                 break
 
-            amount = OCR_COIN.ocr(self.device.image)
-            if amount >= 100:
+            _coin = {
+                'Value': self._get_num(OCR_COIN, 'OCR_COIN'),
+                'Limit': self._get_num(OCR_COIN_LIMIT, 'OCR_COIN_LIMIT')
+            }
+            if _coin['Value'] >= 100:
                 break
+        LogRes(self.config).Coin = _coin
+        if update:
+            self.config.update()
 
-        return amount
+        return _coin['Value']
 
     def _get_oil(self):
         # Update offset
@@ -110,7 +108,27 @@ class CampaignStatus(UI):
 
         return ocr.ocr(self.device.image)
 
-    def get_oil(self, skip_first_screenshot=True):
+    def _get_num(self, _button, name):
+        # Update offset
+        _ = self.appear(OCR_OIL_CHECK)
+
+        color = get_color(self.device.image, OCR_OIL_CHECK.button)
+        if color_similar(color, OCR_OIL_CHECK.color):
+            # Original color
+            if server.server != 'jp':
+                ocr = Digit(_button, name=name, letter=(239, 239, 239), threshold=128)
+            else:
+                ocr = Digit(_button, name=name, letter=(201, 201, 201), threshold=128)
+        elif color_similar(color, (59, 59, 64)):
+            # With black overlay
+            ocr = Digit(_button, name=name, letter=(165, 165, 165), threshold=128)
+        else:
+            logger.warning(f'Unexpected OCR_OIL_CHECK color')
+            ocr = Digit(_button, name=name, letter=(247, 247, 247), threshold=128)
+
+        return ocr.ocr(self.device.image)
+
+    def get_oil(self, skip_first_screenshot=True, update=False):
         """
         Returns:
             int: Oil amount
@@ -123,13 +141,13 @@ class CampaignStatus(UI):
             else:
                 self.device.screenshot()
 
+            if not self.appear(OCR_OIL_CHECK, offset=(10, 2)):
+                logger.info('No oil icon')
+                self.device.sleep(1)
+
             if timeout.reached():
                 logger.warning('Get oil timeout')
                 break
-
-            if not self.appear(OCR_OIL_CHECK, offset=(10, 2)):
-                logger.info('No oil icon')
-                continue
 
             _oil = {
                 'Value': self._get_num(OCR_OIL, 'OCR_OIL'),
@@ -138,70 +156,10 @@ class CampaignStatus(UI):
             if _oil['Value'] >= 100:
                 break
         LogRes(self.config).Oil = _oil
-        self.config.update()
+        if update:
+            self.config.update()
 
         return _oil['Value']
-
-    def get_coin(self, skip_first_screenshot=True):
-        """
-        Returns:
-            int: Coin amount
-        """
-        _coin = {}
-        timeout = Timer(1, count=2).start()
-        while 1:
-            if skip_first_screenshot:
-                skip_first_screenshot = False
-            else:
-                self.device.screenshot()
-
-            if timeout.reached():
-                logger.warning('Get coin timeout')
-                break
-
-            _coin = {
-                'Value': OCR_COIN.ocr(self.device.image),
-                'Limit': OCR_COIN_LIMIT.ocr(self.device.image)
-            }
-            if _coin['Value'] >= 100:
-                break
-        LogRes(self.config).Coin = _coin
-        self.config.update()
-
-        return _coin['Value']
-
-    def _get_oil(self):
-        _oil = {
-            'Value': self._get_num(OCR_OIL, 'OCR_OIL'),
-            'Limit': self._get_num(OCR_OIL_LIMIT, 'OCR_OIL_LIMIT')
-        }
-        LogRes(self.config).Oil = _oil
-        return _oil['Value']
-
-    def _get_coin(self):
-        _coin = {
-            'Value': OCR_COIN.ocr(self.device.image),
-            'Limit': OCR_COIN_LIMIT.ocr(self.device.image)
-        }
-        LogRes(self.config).Coin = _coin
-        return _coin['Value']
-    
-    def _get_num(self, _button, name):
-        # Update offset
-        _ = self.appear(OCR_OIL_CHECK)
-
-        color = get_color(self.device.image, OCR_OIL_CHECK.button)
-        if color_similar(color, OCR_OIL_CHECK.color):
-            # Original color
-            ocr = Digit(_button, name=name, letter=(247, 247, 247), threshold=128)
-        elif color_similar(color, (59, 59, 64)):
-            # With black overlay
-            ocr = Digit(_button, name=name, letter=(165, 165, 165), threshold=128)
-        else:
-            logger.warning(f'Unexpected OCR_OIL_CHECK color')
-            ocr = Digit(_button, name=name, letter=(247, 247, 247), threshold=128)
-
-        return ocr.ocr(self.device.image)
 
     def is_balancer_task(self):
         """
@@ -211,7 +169,8 @@ class CampaignStatus(UI):
         tasks = [
             'Event',
             'Event2',
-            'Event3',
+            'coalition',
+            'coalition_sp',
             'Raid',
             'Coalition',
             'GemsFarming',

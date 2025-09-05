@@ -6,18 +6,14 @@ from module.config.utils import (get_nearest_weekday_date,
                                  get_os_next_reset,
                                  get_os_reset_remain,
                                  get_server_next_update,
-                                 DEFAULT_TIME)
+                                 DEFAULT_TIME,)
+from module.config.deep import deep_get
 from module.exception import RequestHumanTakeover, GameStuckError, ScriptError
-from module.equipment.assets import EQUIPMENT_OPEN
 from module.logger import logger
 from module.map.map_grids import SelectedGrids
-from module.notify import handle_notify
-from module.os.assets import FLEET_FLAGSHIP
 from module.os.fleet import BossFleet
 from module.os.globe_operation import OSExploreError
 from module.os.map import OSMap
-from module.os.ship_exp import ship_info_get_level_exp
-from module.os.ship_exp_data import LIST_SHIP_EXP
 from module.os_handler.action_point import OCR_OS_ADAPTABILITY, ActionPointLimit
 from module.os_handler.assets import OS_MONTHBOSS_NORMAL, OS_MONTHBOSS_HARD, EXCHANGE_CHECK, EXCHANGE_ENTER
 from module.os_shop.assets import OS_SHOP_CHECK
@@ -421,8 +417,9 @@ class OperationSiren(OSMap):
             OpsiGeneral_AkashiShopFilter='ActionPoint',
         )
         if not self.config.is_task_enabled('OpsiMeowfficerFarming'):
-            self.config.cross_set(keys='OpsiMeowfficerFarming.Scheduler.Enable', value=True)
-        while True:
+                self.config.cross_set(keys='OpsiMeowfficerFarming.Scheduler.Enable', value=True)
+
+        while 1:
             # Limited action point preserve of hazard 1 to 200
             self.config.OS_ACTION_POINT_PRESERVE = 200
             if self.config.is_task_enabled('OpsiAshBeacon') \
@@ -432,8 +429,8 @@ class OperationSiren(OSMap):
                 self.config.OS_ACTION_POINT_PRESERVE = 0
             logger.attr('OS_ACTION_POINT_PRESERVE', self.config.OS_ACTION_POINT_PRESERVE)
 
-            if self.get_yellow_coins() < self.config.OS_CL1_YELLOW_COINS_PRESERVE:
-                logger.info(f'Reach the limit of yellow coins, preserve={self.config.OS_CL1_YELLOW_COINS_PRESERVE}')
+            if self.get_yellow_coins() < self.config.OS_NORMAL_YELLOW_COINS_PRESERVE:
+                logger.info(f'Reach the limit of yellow coins, preserve={self.config.OS_NORMAL_YELLOW_COINS_PRESERVE}')
                 with self.config.multi_set():
                     self.config.task_delay(server_update=True)
                     if not self.is_in_opsi_explore():
@@ -467,53 +464,6 @@ class OperationSiren(OSMap):
 
             self.handle_after_auto_search()
             self.config.check_task_switch()
-
-    def os_check_leveling(self):
-        logger.hr('OS check leveling', level=1)
-        logger.attr('OpsiCheckLeveling_LastRun', self.config.OpsiCheckLeveling_LastRun)
-        time_run = self.config.OpsiCheckLeveling_LastRun + timedelta(days=1)
-        logger.info(f'Task OpsiCheckLeveling run time is {time_run}')
-        if datetime.now().replace(microsecond=0) < time_run:
-            logger.info('Not running time, skip')
-            return
-        target_level = self.config.OpsiCheckLeveling_TargetLevel
-        if not isinstance(target_level, int) or target_level < 0 or target_level > 125:
-            logger.error(f'Invalid target level: {target_level}, must be an integer between 0 and 125')
-            raise ScriptError(f'Invalid opsi ship target level: {target_level}')
-        if target_level == 0:
-            logger.info('Target level is 0, skip')
-            return
-
-        logger.attr('Fleet to check', self.config.OpsiFleet_Fleet)
-        self.fleet_set(self.config.OpsiFleet_Fleet)
-        self.ship_info_enter(FLEET_FLAGSHIP)
-        all_full_exp = True
-        
-        while 1:
-            self.device.screenshot()
-            level, exp = ship_info_get_level_exp(main=self)
-            current_total_exp = LIST_SHIP_EXP[level - 1] + exp
-            logger.info(f'Level: {level}, Exp: {exp}, Total Exp: {current_total_exp}, Target Exp: {LIST_SHIP_EXP[target_level - 1]}')
-            if current_total_exp < LIST_SHIP_EXP[target_level - 1]:
-                all_full_exp = False
-                break
-            if not self.ship_view_next():
-                break
-
-        if all_full_exp:
-            logger.info(f'All ships in fleet {self.config.OpsiFleet_Fleet} are full exp, '
-                        f'level {target_level} or above')
-            handle_notify(
-                self.config.Error_OnePushConfig,
-                title=f"Alas <{self.config.config_name}> level check passed",
-                content=f"<{self.config.config_name}> {self.config.task} reached level limit {target_level} or above."
-            )
-        self.ui_back(appear_button=EQUIPMENT_OPEN, check_button=self.is_in_map)
-        self.config.OpsiCheckLeveling_LastRun = datetime.now().replace(microsecond=0)
-        if all_full_exp and self.config.OpsiCheckLeveling_DelayAfterFull:
-            logger.info('Delay task after all ships are full exp')
-            self.config.task_delay(server_update=True)
-            self.config.task_stop()
 
     def _os_explore_task_delay(self):
         """

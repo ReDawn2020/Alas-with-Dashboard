@@ -13,7 +13,8 @@ from module.handler.fast_forward import map_files, to_map_file_name
 from module.logger import logger
 from module.notify import handle_notify
 from module.ui.page import page_campaign
-
+from module.config.deep import deep_get, deep_set
+from datetime import datetime, timedelta
 
 class CampaignRun(CampaignEvent, ShopStatus):
     folder: str
@@ -95,11 +96,10 @@ class CampaignRun(CampaignEvent, ShopStatus):
             return True
         # Oil limit
         if oil_check:
-            # Gem limit
             self.status_get_gems()
-            # Coin limit
             self.get_coin()
-            if self.get_oil() < max(500, self.config.StopCondition_OilLimit):
+            _oil = self.get_oil()
+            if _oil < max(500, self.config.StopCondition_OilLimit):
                 logger.hr('Triggered stop condition: Oil limit')
                 self.config.task_delay(minute=(120, 240))
                 return True
@@ -342,9 +342,9 @@ class CampaignRun(CampaignEvent, ShopStatus):
             in: page_campaign
         """
         if self.campaign.commission_notice_show_at_campaign():
-            logger.info('Commission notice found')
-            self.config.task_call('Commission', force_call=True)
-            self.config.task_stop('Commission notice found')
+                logger.info('Commission notice found')
+                self.config.task_call('Commission', force_call=True)
+                self.config.task_stop('Commission notice found')
 
     def run(self, name, folder='campaign_main', mode='normal', total=0):
         """
@@ -411,6 +411,11 @@ class CampaignRun(CampaignEvent, ShopStatus):
             if self.triggered_stop_condition(oil_check=not self.campaign.is_in_auto_search_menu()):
                 break
 
+            # Update config
+            if len(self.config.modified):
+                logger.info('Updating config for dashboard')
+                self.config.update()
+
             # Run
             self.device.stuck_record_clear()
             self.device.click_record_clear()
@@ -423,9 +428,8 @@ class CampaignRun(CampaignEvent, ShopStatus):
 
             # Update config
             if len(self.campaign.config.modified):
-                logger.info('Updating dashboard data')
+                logger.info('Updating config for dashboard')
                 self.campaign.config.update()
-
             # After run
             self.run_count += 1
             if self.config.StopCondition_RunCount:

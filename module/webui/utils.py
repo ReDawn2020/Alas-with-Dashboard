@@ -10,7 +10,6 @@ from typing import Callable, Generator, List
 
 import pywebio
 from pywebio.input import PASSWORD, input
-from module.webui.lang import _t, t
 from pywebio.output import PopupSize, popup, put_html, toast
 from pywebio.session import eval_js, info as session_info, register_thread, run_js
 from rich.console import Console
@@ -441,12 +440,12 @@ def to_pin_value(val):
 def login(password):
     if get_localstorage("password") == str(password):
         return True
-    pwd = input(label=t("Gui.Login.Login"), type=PASSWORD, placeholder="PASSWORD")
+    pwd = input(label="Please login below.", type=PASSWORD, placeholder="PASSWORD")
     if str(pwd) == str(password):
         set_localstorage("password", str(pwd))
         return True
     else:
-        toast(t("Gui.Login.LoginError"), color="error")
+        toast("Wrong password!", color="error")
         return False
 
 
