@@ -8,7 +8,6 @@ from module.handler.assets import POPUP_CONFIRM, STORY_SKIP
 from module.logger import logger
 from module.ocr.ocr import Digit
 from module.retire.retirement import Retirement
-from module.shop.shop_general import GeneralShop
 from module.log_res.log_res import LogRes
 
 RECORD_GACHA_OPTION = ('RewardRecord', 'gacha')
@@ -18,8 +17,13 @@ OCR_BUILD_TICKET_COUNT = Digit(BUILD_TICKET_COUNT, letter=(255, 247, 247), thres
 OCR_BUILD_SUBMIT_COUNT = Digit(BUILD_SUBMIT_COUNT, letter=(255, 247, 247), threshold=64)
 OCR_BUILD_SUBMIT_WW_COUNT = Digit(BUILD_SUBMIT_WW_COUNT, letter=(255, 247, 247), threshold=64)
 
+import module.config.server as server
+if server.server != 'jp':
+    OCR_COIN = Digit(OCR_COIN, name='OCR_COIN', letter=(239, 239, 239), threshold=128)
+else:
+    OCR_COIN = Digit(OCR_COIN, name='OCR_COIN', letter=(201, 201, 201), threshold=128)
 
-class RewardGacha(GachaUI, GeneralShop, Retirement):
+class RewardGacha(GachaUI, Retirement):
     build_coin_count = 0
     build_cube_count = 0
     build_ticket_count = 0
@@ -293,10 +297,6 @@ class RewardGacha(GachaUI, GeneralShop, Retirement):
         # Go to Gacha
         self.ui_goto_gacha()
 
-        # OCR Gold and Cubes
-        self.shop_currency()
-        self.build_cube_count = OCR_BUILD_CUBE_COUNT.ocr(self.device.image)
-
         # Flush queue of any pre-existing
         # builds to ensure starting fresh
         # Upon exit, expected to be in
@@ -306,6 +306,8 @@ class RewardGacha(GachaUI, GeneralShop, Retirement):
         # OCR Gold and Cubes
         self.build_coin_count = OCR_COIN.ocr(self.device.image)
         self.build_cube_count = OCR_BUILD_CUBE_COUNT.ocr(self.device.image)
+        LogRes(self.config).Cube = self.build_cube_count
+        self.config.update()
 
         # Transition to appropriate target construction pool
         # Returns appropriate costs for gacha as well
@@ -329,7 +331,7 @@ class RewardGacha(GachaUI, GeneralShop, Retirement):
         if self.config.Gacha_Amount > self.build_ticket_count:
             buy[0] = self.build_ticket_count
             # Calculate rolls allowed based on configurations and resources
-            buy[1] = self.gacha_calculate(self.config.Gacha_Amount-self.build_ticket_count, gold_cost, cube_cost)
+            buy[1] = self.gacha_calculate(self.config.Gacha_Amount - self.build_ticket_count, gold_cost, cube_cost)
         else:
             LogRes(self.config).Cube = self.build_cube_count
             self.config.update()
