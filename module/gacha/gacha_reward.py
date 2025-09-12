@@ -304,10 +304,12 @@ class RewardGacha(GachaUI, Retirement):
         self.gacha_flush_queue()
 
         # OCR Gold and Cubes
+        self.device.screenshot()
         self.build_coin_count = OCR_COIN.ocr(self.device.image)
         self.build_cube_count = OCR_BUILD_CUBE_COUNT.ocr(self.device.image)
         LogRes(self.config).Cube = self.build_cube_count
         self.config.update()
+
 
         # Transition to appropriate target construction pool
         # Returns appropriate costs for gacha as well
